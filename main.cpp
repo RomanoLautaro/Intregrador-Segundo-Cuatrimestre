@@ -23,7 +23,8 @@ bool verificarPassword(usuario pass);
 bool verifUser(usuario user);
 int main(int argc, char const *argv[])
 {
-    
+    usuario user;
+    registroUser(user);
     return 0;
 }
 
@@ -46,19 +47,20 @@ bool registroUser(usuario user){
         fread(&aux, sizeof(usuario), 1, arch);
     }
     _flushall();
-    printf("\\t\tIngrese contraseña: ");
+    printf("\t\tIngrese contraseña: ");
     gets(user.contrasenia);
     printf("\t\tIngrese apellido y nombre: ");
     gets(user.apeNom);
 	printf("\t\tIngrese DNI: ");
 	scanf("%d", &user.dni);
 	printf("\t\tIngrese tipo de usuario [V=Veterinario;A=asistente]: ");
+	_flushall();
 	scanf("%c", &user.tipoUsuario);
 	
     
     if (band==false)
     {
-        if(user.tipoUsuario=='V'){
+        if(user.tipoUsuario=='V' || user.tipoUsuario == 'v'){
             registroVet(user);
         }
         fseek(arch, sizeof(usuario), SEEK_END);
@@ -78,7 +80,7 @@ bool registroVet(usuario user){
 	FILE *arch = fopen("Veterinarios.dat", "a+b");
 
     system("cls");
-	printf("\n\n\t\tRegistro de veterinario\n\t\t=====================");
+	printf("\n\n\t\tRegistro de veterinario\n\t\t=====================\n\n");
     
     do{
 	    printf("\t\tIngrese su matricula: ");
