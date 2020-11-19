@@ -166,7 +166,7 @@ bool verificarPassword(usuario pass){
 
     for (int i = 0; i < strlen(pass.contrasenia); i++)
     {
-        if(pass.contrasenia=='.' or pass.contrasenia==',' or pass.contrasenia==';' or pass.contrasenia==' '){
+        if(pass.contrasenia[i]=='.' or pass.contrasenia[i]==',' or pass.contrasenia[i]==';' or pass.contrasenia[i]==' '){
             printf("\n\t\tLa Contrasenia NO debe contener ningún carácter de puntuación y/o espacios, sólo caracteres alfanuméricos...");
             return false;
         }
