@@ -66,7 +66,7 @@ bool registroUser(usuario user){
         fread(&aux, sizeof(usuario), 1, arch);
     }
     _flushall();
-    printf("\t\tIngrese contraseña: ");
+    printf("\t\tIngrese contrase%ca: ", 164);
     gets(user.contrasenia);
     printf("\t\tIngrese apellido y nombre: ");
     gets(user.apeNom);
