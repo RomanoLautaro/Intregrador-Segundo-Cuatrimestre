@@ -1,23 +1,23 @@
-/* Implementación de conio segun especificaciones de Borland
+/* Implementaciï¿½n de conio segun especificaciones de Borland
  * para Mingw/Dev-C++.
  *
  * Por:
  * Salvador Pozo Coronado <salvador@conclase.net>
  * C++ con Clase: http://c.conclase.net
- * Versión 1.0 Abril de 2003.
- * Versión 1.1 Agosto de 2003 (fru <elfrucool@yahoo.com.mx>)
- * Se adapta el código a ANSI C (la versión anterior contiene
- * muchos errores debido al uso de características C++).
- * Versión 1.2 Abril de 2004.
- * Se corrige bug en función void _setcursortype(int cur_t);
- * que no funcionaba correctemente con la opción _NOCURSOR
- * Versión 1.3 Agosto de 2004
- * Se usa el nombre libconio.a para facilitar el enlace estático.
- * Versión 1.31 Agosto de 2005
- * Se corrige el error en la función kbhit para que sólo busque
+ * Versiï¿½n 1.0 Abril de 2003.
+ * Versiï¿½n 1.1 Agosto de 2003 (fru <elfrucool@yahoo.com.mx>)
+ * Se adapta el cï¿½digo a ANSI C (la versiï¿½n anterior contiene
+ * muchos errores debido al uso de caracterï¿½sticas C++).
+ * Versiï¿½n 1.2 Abril de 2004.
+ * Se corrige bug en funciï¿½n void _setcursortype(int cur_t);
+ * que no funcionaba correctemente con la opciï¿½n _NOCURSOR
+ * Versiï¿½n 1.3 Agosto de 2004
+ * Se usa el nombre libconio.a para facilitar el enlace estï¿½tico.
+ * Versiï¿½n 1.31 Agosto de 2005
+ * Se corrige el error en la funciï¿½n kbhit para que sï¿½lo busque
  * eventos de teclas pulsadas, e ignore los de tecla soltada.
  * 
- * Para dominio público sin ninguna garantía.
+ * Para dominio pï¿½blico sin ninguna garantï¿½a.
  */
 
 #include <stdio.h>
@@ -32,7 +32,7 @@
 extern "C" {
 #endif
 
-// Declaramos una estructura text_info para almacenar la información
+// Declaramos una estructura text_info para almacenar la informaciï¿½n
 // sobre la ventana actual.
 text_info vActual = {0, 0, 79, 24, WHITE, WHITE, C80, 35, 120, 1, 1};
 
@@ -68,7 +68,7 @@ char *cgets(char *str)
 // Clears to end of line in text window.
 // clreol clears all characters from the cursor position to the end of the 
 // line within the current text window, without moving the cursor.
-// Borrar hasta el final de la línea requiere borrar tanto los caracteres
+// Borrar hasta el final de la lï¿½nea requiere borrar tanto los caracteres
 // como los atributos.
 void clreol ()
 {
@@ -89,8 +89,8 @@ void clreol ()
 // Clears the text-mode window.
 // clrscr clears the current text window and places the cursor in the upper 
 // left corner (at position 1,1). 
-// La consola en algunos sistemas operativos no está limitada a 80*25
-// caracteres, como en MSDOS, obtenemos el tamaño actual de la consola y la 
+// La consola en algunos sistemas operativos no estï¿½ limitada a 80*25
+// caracteres, como en MSDOS, obtenemos el tamaï¿½o actual de la consola y la 
 // borramos entera, usando los valores de atributos actuales.
 void clrscr ()
 {
