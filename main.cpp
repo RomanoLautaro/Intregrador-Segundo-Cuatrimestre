@@ -3,6 +3,9 @@
 #include "conio.h"
 #include "conio.c"
 #include <string.h>
+#include<iostream>
+
+using namespace std;
 
 struct usuario{
     char apeNom[60];
@@ -17,16 +20,18 @@ struct veterinario{
 	int dni;
 	char telefono[25];
 };
+
+struct fecha{
+	int dia;
+	int mes;
+	int anio;
+};
+
 struct turnos{
 	int matriculaVet;
 	fecha fec;
 	int dni_duenio;
     char detalles[382];
-};
-struct fecha{
-	int dia;
-	int mes;
-	int anio;
 };
 
 bool registroUser(usuario user);
@@ -37,7 +42,8 @@ void atencionesVeterinarios();
 
 int main(int argc, char const *argv[])
 {
-    
+    usuario user;
+    registroUser(user);
     return 0;
 }
 
@@ -60,7 +66,7 @@ bool registroUser(usuario user){
         fread(&aux, sizeof(usuario), 1, arch);
     }
     _flushall();
-    printf("\t\tIngrese contraseÃ±a: ");
+    printf("\t\tIngrese contraseña: ");
     gets(user.contrasenia);
     printf("\t\tIngrese apellido y nombre: ");
     gets(user.apeNom);
@@ -180,7 +186,7 @@ bool verificarPassword(usuario pass){
         if(pass.contrasenia[i] >= 97 && pass.contrasenia[i]<= 122) contNum++;
     }
     if(contMay==0 || contMin==0 || contNum==0){
-		printf("\n\t\tLa Contrasenia debe tener al menos una letra mayÃºscula, una letra minÃºscula y un nÃºmero...");
+		printf("\n\t\tLa Contrasenia debe tener al menos una letra mayúscula, una letra minúscula y un número...");
         return false;
 	}
 
@@ -188,7 +194,7 @@ bool verificarPassword(usuario pass){
 	{
 		if(pass.contrasenia[i] >= 160 && pass.contrasenia[i]<= 163 || pass.contrasenia[i] == 130 || pass.contrasenia[i] == 181 || pass.contrasenia[i] == 144 ||
             pass.contrasenia[i] == 214 || pass.contrasenia[i] == 224 || pass.contrasenia[i] == 233 ){
-            printf("\n\t\tLa Contrasenia No puede contener acentos. SÃ³lo caracteres alfanumÃ©ricos...");
+            printf("\n\t\tLa Contrasenia No puede contener acentos. Sólo caracteres alfanuméricos...");
 		}
 		
     }
@@ -196,7 +202,7 @@ bool verificarPassword(usuario pass){
     for (int i = 0; i < strlen(pass.contrasenia); i++)
     {   
         if(pass.contrasenia[i]=='.' or pass.contrasenia[i]==',' or pass.contrasenia[i]==';' or pass.contrasenia[i]==' '){
-            printf("\n\t\tLa Contrasenia NO debe contener ningÃºn carÃ¡cter de puntuaciÃ³n y/o espacios, sÃ³lo caracteres alfanumÃ©ricos...");
+            printf("\n\t\tLa Contrasenia NO debe contener ningún carácter de puntuación y/o espacios, sólo caracteres alfanuméricos...");
             return false;
         }
     }
@@ -228,7 +234,7 @@ bool verificarPassword(usuario pass){
             {
                 if(aux[0]+1==aux[1])
                 {
-                    printf("\n\t\tLa Contrasenia NO debe contener caracteres consecutivos que refieran a letras alfabÃ©ticamente consecutivas...");
+                    printf("\n\t\tLa Contrasenia NO debe contener caracteres consecutivos que refieran a letras alfabéticamente consecutivas...");
                     return false;
                 }
             }
@@ -278,5 +284,3 @@ void atencionesVeterinarios(){
         fread(&vet,sizeof(veterinario),1,arch1);
     }
 }
-
-
