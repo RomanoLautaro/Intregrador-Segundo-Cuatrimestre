@@ -3,7 +3,7 @@
 #include "conio.h"
 #include "conio.c"
 #include <string.h>
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
@@ -39,6 +39,7 @@ bool registroVet(usuario vet);
 bool verificarPassword(usuario pass);
 bool verifUser(usuario user);
 void atencionesVeterinarios();
+void rankingDeVeterinarios();
 
 int main(int argc, char const *argv[])
 {
@@ -50,24 +51,45 @@ int main(int argc, char const *argv[])
 bool registroUser(usuario user){
     FILE *arch=fopen("Usuarios.dat", "a+b");
     usuario aux;
-    bool band=false;
-	system("cls");
-	printf("\n\n\t\tRegistro de usuario\n\t===============================================");
-	printf("\n\n\t\tIngrese usuario: ");
-    gets(user.usuario);
-    rewind(arch);
-    fread(&aux, sizeof(usuario), 1, arch);
-    for (int i = 0; !feof(arch) ; i++)
+    bool band=false, vBool;
+	do
     {
-        if(strcmp(user.usuario, aux.usuario)==0){
-            band=true;
-            break;
+        band=false;
+        system("cls");
+        printf("\n\n\t\tRegistro de usuario\n\t===============================================");
+        printf("\n\n\t\tIngrese usuario: ");
+        gets(user.usuario);
+        vBool=verifUser(user);
+        if (vBool = true)
+        {
+            rewind(arch);
+            fread(&aux, sizeof(usuario), 1, arch);
+            for (int i = 0; !feof(arch) ; i++)
+            {
+                if(strcmp(user.usuario, aux.usuario)==0){
+                    band=true;
+                    break;
+                }
+                fread(&aux, sizeof(usuario), 1, arch);
+            }
+            if (band)
+            {
+                printf("\n\t\t\tEL USUARIO INGRESADO YA EXISTE, VUELVA A INTENTAR.");
+            }
+            
         }
-        fread(&aux, sizeof(usuario), 1, arch);
-    }
+        
+    } while (band==true or vBool==false);
+    
     _flushall();
-    printf("\t\tIngrese contrase%ca: ", 164);
-    gets(user.contrasenia);
+    do
+    {
+        printf("\t\tIngrese contraseï¿½a: ");
+        gets(user.contrasenia);
+        band=verificarPassword(user);
+        
+    } while (band=false);
+    
     printf("\t\tIngrese apellido y nombre: ");
     gets(user.apeNom);
 	printf("\t\tIngrese DNI: ");
@@ -77,17 +99,13 @@ bool registroUser(usuario user){
 	scanf("%c", &user.tipoUsuario);
 	
     
-    if (band==false)
-    {
-        if(user.tipoUsuario=='V' || user.tipoUsuario == 'v'){
-            registroVet(user);
-        }
-        fseek(arch, sizeof(usuario), SEEK_END);
-        fwrite(&user, sizeof(usuario), 1, arch);
-        printf("\n\t\t\tSE HA REGISTRADO DE FORMA EXITOSA.");
-    }else{
-        printf("\n\t\t\tEL USUARIO INGRESADO YA EXISTE, VUELVA A INTENTAR.");
+    if(user.tipoUsuario=='V' || user.tipoUsuario == 'v'){
+        registroVet(user);
     }
+    fseek(arch, sizeof(usuario), SEEK_END);
+    fwrite(&user, sizeof(usuario), 1, arch);
+    printf("\n\t\t\tSE HA REGISTRADO DE FORMA EXITOSA.");
+
     
     
 }
@@ -186,7 +204,7 @@ bool verificarPassword(usuario pass){
         if(pass.contrasenia[i] >= 97 && pass.contrasenia[i]<= 122) contNum++;
     }
     if(contMay==0 || contMin==0 || contNum==0){
-		printf("\n\t\tLa Contrasenia debe tener al menos una letra mayúscula, una letra minúscula y un número...");
+		printf("\n\t\tLa Contrasenia debe tener al menos una letra mayï¿½scula, una letra minï¿½scula y un nï¿½mero...");
         return false;
 	}
 
@@ -194,7 +212,7 @@ bool verificarPassword(usuario pass){
 	{
 		if(pass.contrasenia[i] >= 160 && pass.contrasenia[i]<= 163 || pass.contrasenia[i] == 130 || pass.contrasenia[i] == 181 || pass.contrasenia[i] == 144 ||
             pass.contrasenia[i] == 214 || pass.contrasenia[i] == 224 || pass.contrasenia[i] == 233 ){
-            printf("\n\t\tLa Contrasenia No puede contener acentos. Sólo caracteres alfanuméricos...");
+            printf("\n\t\tLa Contrasenia No puede contener acentos. Sï¿½lo caracteres alfanumï¿½ricos...");
 		}
 		
     }
@@ -202,7 +220,7 @@ bool verificarPassword(usuario pass){
     for (int i = 0; i < strlen(pass.contrasenia); i++)
     {   
         if(pass.contrasenia[i]=='.' or pass.contrasenia[i]==',' or pass.contrasenia[i]==';' or pass.contrasenia[i]==' '){
-            printf("\n\t\tLa Contrasenia NO debe contener ningún carácter de puntuación y/o espacios, sólo caracteres alfanuméricos...");
+            printf("\n\t\tLa Contrasenia NO debe contener ningï¿½n carï¿½cter de puntuaciï¿½n y/o espacios, sï¿½lo caracteres alfanumï¿½ricos...");
             return false;
         }
     }
@@ -234,14 +252,14 @@ bool verificarPassword(usuario pass){
             {
                 if(aux[0]+1==aux[1])
                 {
-                    printf("\n\t\tLa Contrasenia NO debe contener caracteres consecutivos que refieran a letras alfabéticamente consecutivas...");
+                    printf("\n\t\tLa Contrasenia NO debe contener caracteres consecutivos que refieran a letras alfabï¿½ticamente consecutivas...");
                     return false;
                 }
             }
         }
         
     }
-
+    return true;
 }
 
 void atencionesVeterinarios(){
@@ -283,4 +301,43 @@ void atencionesVeterinarios(){
 
         fread(&vet,sizeof(veterinario),1,arch1);
     }
+}
+
+void rankingDeVeterinarios(){
+	typedef char nombres[50];
+	nombres nombre[50];
+	int cont;
+	int c = 0;
+    float porcen;
+	FILE *arch = fopen("Turnos.dat", "r+b");
+	FILE *arch1 = fopen("Veterinarios.dat", "r+b");
+    
+    turnos turno;
+	veterinario vet;
+    fread(&turno,sizeof(turnos),1,arch);
+	while(!feof(arch)){
+        c++;
+		fread(&turno,sizeof(turnos),1,arch);
+    }
+    rewind(arch);
+	fread(&vet,sizeof(vet),1,arch1);
+	while(!feof(arch1)){
+        cont=0;
+		rewind(arch);
+	    fread(&turno,sizeof(turnos),1,arch);
+	    while(!feof(arch)){
+            if(vet.matricula == turno.matriculaVet){
+				cont++;
+			}
+			fread(&turno,sizeof(turnos),1,arch);
+        }
+        porcen=(float)cont*100/c;
+        printf("\n\t======================================================");
+		printf("\n\t\tNombre Veterinario: %s", vet.apeNom);
+		printf("\n\t\tCantidad de turnos: %d", cont);
+		printf("\n\t\tPorcentaje de turnos: %.2f", porcen);
+		cont = 0;
+		fread(&vet, sizeof(veterinario), 1, arch1);
+	}
+
 }

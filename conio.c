@@ -26,7 +26,7 @@
 #include <windows.h>
 #include <string.h>
 #include <stdarg.h>
-#include <conio.h>
+#include "conio.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,7 +34,7 @@ extern "C" {
 
 // Declaramos una estructura text_info para almacenar la informaci�n
 // sobre la ventana actual.
-text_info vActual = {0, 0, 79, 24, WHITE, WHITE, C80, 35, 120, 1, 1};
+text_info vActual = {0, 0, 79, 24, WHITE, WHITE, C80, 25, 80, 1, 1};
 
 // Reads a string from the console.
 // cgets reads a string of characters from the console, storing the string 
@@ -188,6 +188,7 @@ int cputs(const char *str) // repasar
    va_list p; 
    int n;
    DWORD leidos;
+
    buffer = new char[260];
    buffer[0] = 255;
    cgets(buffer);
