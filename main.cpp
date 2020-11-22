@@ -32,6 +32,7 @@ struct turnos{
 	fecha fec;
 	int dni_duenio;
     char detalles[382];
+    bool atendido;
 };
 
 bool registroUser(usuario user);
@@ -60,7 +61,7 @@ bool registroUser(usuario user){
         printf("\n\n\t\tIngrese usuario: ");
         gets(user.usuario);
         vBool=verifUser(user);
-        if (vBool = true)
+        if (vBool == true)
         {
             rewind(arch);
             fread(&aux, sizeof(usuario), 1, arch);
@@ -77,18 +78,19 @@ bool registroUser(usuario user){
                 printf("\n\t\t\tEL USUARIO INGRESADO YA EXISTE, VUELVA A INTENTAR.");
             }
             
-        }
+        }else system("pause");	
+		
         
     } while (band==true or vBool==false);
     
     _flushall();
     do
     {
-        printf("\t\tIngrese contrase�a: ");
+        printf("\t\tIngrese contrasenia: ");
         gets(user.contrasenia);
         band=verificarPassword(user);
         
-    } while (band=false);
+    } while (band==false);
     
     printf("\t\tIngrese apellido y nombre: ");
     gets(user.apeNom);
@@ -107,7 +109,7 @@ bool registroUser(usuario user){
     printf("\n\t\t\tSE HA REGISTRADO DE FORMA EXITOSA.");
 
     
-    
+    fclose(arch);
 }
 
 bool registroVet(usuario user){
@@ -149,7 +151,7 @@ bool registroVet(usuario user){
         fseek(arch, sizeof(veterinario), SEEK_END);
         fwrite(&vet, sizeof(veterinario), 1, arch);
 	}
-    
+    fclose(arch);
 }
 
 bool verifUser(usuario user){
@@ -204,7 +206,7 @@ bool verificarPassword(usuario pass){
         if(pass.contrasenia[i] >= 97 && pass.contrasenia[i]<= 122) contNum++;
     }
     if(contMay==0 || contMin==0 || contNum==0){
-		printf("\n\t\tLa Contrasenia debe tener al menos una letra may�scula, una letra min�scula y un n�mero...");
+		printf("\n\t\tLa Contrasenia debe tener al menos una letra mayuscula, una letra minuscula y un numero...");
         return false;
 	}
 
@@ -212,7 +214,7 @@ bool verificarPassword(usuario pass){
 	{
 		if(pass.contrasenia[i] >= 160 && pass.contrasenia[i]<= 163 || pass.contrasenia[i] == 130 || pass.contrasenia[i] == 181 || pass.contrasenia[i] == 144 ||
             pass.contrasenia[i] == 214 || pass.contrasenia[i] == 224 || pass.contrasenia[i] == 233 ){
-            printf("\n\t\tLa Contrasenia No puede contener acentos. S�lo caracteres alfanum�ricos...");
+            printf("\n\t\tLa Contrasenia No puede contener acentos. Solo caracteres alfanumericos...");
 		}
 		
     }
@@ -220,7 +222,7 @@ bool verificarPassword(usuario pass){
     for (int i = 0; i < strlen(pass.contrasenia); i++)
     {   
         if(pass.contrasenia[i]=='.' or pass.contrasenia[i]==',' or pass.contrasenia[i]==';' or pass.contrasenia[i]==' '){
-            printf("\n\t\tLa Contrasenia NO debe contener ning�n car�cter de puntuaci�n y/o espacios, s�lo caracteres alfanum�ricos...");
+            printf("\n\t\tLa Contrasenia NO debe contener ningun caracter de puntuacion y/o espacios, solo caracteres alfanumericos...");
             return false;
         }
     }
@@ -252,7 +254,7 @@ bool verificarPassword(usuario pass){
             {
                 if(aux[0]+1==aux[1])
                 {
-                    printf("\n\t\tLa Contrasenia NO debe contener caracteres consecutivos que refieran a letras alfab�ticamente consecutivas...");
+                    printf("\n\t\tLa Contrasenia NO debe contener caracteres consecutivos que refieran a letras alfabeticamente consecutivas...");
                     return false;
                 }
             }
@@ -280,7 +282,7 @@ void atencionesVeterinarios(){
 		rewind(arch);
 	    fread(&turno,sizeof(turnos),1,arch);
 	    while(!feof(arch)){
-            if(vet.matricula == turno.matriculaVet){
+            if(vet.matricula == turno.matriculaVet && turno.atendido==true){
 				printf("\n\t\tAtencion Nro: %d", c);
 				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
                 printf("\n\t\tFecha:");
@@ -301,6 +303,8 @@ void atencionesVeterinarios(){
 
         fread(&vet,sizeof(veterinario),1,arch1);
     }
+    fclose(arch);
+    fclose(arch1);
 }
 
 void rankingDeVeterinarios(){
@@ -316,7 +320,9 @@ void rankingDeVeterinarios(){
 	veterinario vet;
     fread(&turno,sizeof(turnos),1,arch);
 	while(!feof(arch)){
-        c++;
+		
+		if(turno.atendido==true) c++;
+		
 		fread(&turno,sizeof(turnos),1,arch);
     }
     rewind(arch);
@@ -326,7 +332,7 @@ void rankingDeVeterinarios(){
 		rewind(arch);
 	    fread(&turno,sizeof(turnos),1,arch);
 	    while(!feof(arch)){
-            if(vet.matricula == turno.matriculaVet){
+            if(vet.matricula == turno.matriculaVet && turno.atendido==true){
 				cont++;
 			}
 			fread(&turno,sizeof(turnos),1,arch);
