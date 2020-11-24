@@ -3,17 +3,35 @@
 #include "conio.h"
 #include <string.h>
 #include <windows.h>
+#include <iostream>
+
+#define UP 80
+#define DOWN 72
+#define ENTER 13
 
 text_info vActual = {0, 0, 79, 24, WHITE, WHITE, C80, 25, 80, 1, 1};
 
 //DECLARACI�N DE FUNCIONES
 
+void ocultarCursor();
 void gotoxy(int x, int y);
 void textcolor(int newcolor);
 void textbackground(int newcolor);
 void marco();
 
 //FUNCIONES
+
+void ocultarCursor(){
+	
+	HANDLE hCon;
+	hCon= GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cci;
+	cci.dwSize= 2;
+	cci.bVisible= FALSE; 
+	
+	SetConsoleCursorInfo(hCon, &cci);
+	
+}
 
 void gotoxy(int x, int y){
 
@@ -61,4 +79,68 @@ void marco(){
 	// gotoxy(87, 5); printf("%c", 219);
 	// gotoxy(36, 16); printf("%c", 219);
 	// gotoxy(87, 16); printf("%c", 219);
+}
+
+int menu(const char *titulo, const char *opciones[], int N){
+	
+	int opcSeleccionada=1, tecla;
+	bool band=true;
+	textcolor(LIGHTRED);
+	marco();
+	textcolor(BLACK);
+	textbackground(WHITE);
+	gotoxy(50, 5); printf("%s", titulo);
+	textcolor(WHITE);
+	gotoxy(49, 5); printf("%c", 219);
+	gotoxy(50+strlen(titulo), 5); printf("%c", 219);
+	//gotoxy(56, 5); printf("%cBIENVENIDO%c", 173, 33);
+	textbackground(BLACK);
+	// textcolor(WHITE);
+	//gotoxy(50, 7); printf("%s", titulo);
+	textcolor(WHITE);
+	textbackground(LIGHTRED);
+	gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
+	textcolor(BLACK);
+	textbackground(WHITE);
+	gotoxy(26-7, 21+7); printf(" Utilize las flechas direccionales para moverse en las opciones y ENTER para seleccionar. ");
+	textbackground(BLACK);
+	textcolor(WHITE);
+	for(int i=0; i<N; i++){ 
+		
+		gotoxy(44, 10+i); printf("%d- %s", i+1, opciones[i]);
+	}
+	do{
+
+		gotoxy(40, 9+opcSeleccionada); textcolor(YELLOW); printf("==>"); textcolor(WHITE);
+
+			
+			do{
+				ocultarCursor();
+				gotoxy(119, 34);printf(" ");
+				tecla= getch();  
+			}while(tecla!=UP && tecla!=DOWN && tecla!=ENTER);
+			switch(tecla){
+				case UP:
+						gotoxy(40, 9+opcSeleccionada); textcolor(CYAN); printf("   "); textcolor(WHITE);
+						opcSeleccionada++;
+						if(opcSeleccionada>5){
+							opcSeleccionada=1;
+						}
+						Beep(1300, 50);
+					break;
+				case DOWN: 
+						gotoxy(40, 9+opcSeleccionada); textcolor(CYAN); printf("   "); textcolor(WHITE);
+						opcSeleccionada--;
+						if(opcSeleccionada<1){
+							opcSeleccionada=N;
+						}
+						Beep(1300, 50);
+					break;
+				case ENTER:
+						band=false;
+						Beep(800, 50); 
+					break;
+			}
+	}while(band);
+	return opcSeleccionada;
 }

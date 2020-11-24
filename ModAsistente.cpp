@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "conio.h"
-#include "conio.c"
-#include <string.h>
-#include <iostream>
+#include "Owntools.h"
 
 using namespace std;
 struct usuario{

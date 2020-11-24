@@ -1,9 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "conio.h"
-#include "conio.c"
-#include <string.h>
-#include <iostream>
+
+
+#include "Owntools.h"
+
 
 using namespace std;
 
@@ -41,12 +39,41 @@ bool verificarPassword(usuario pass);
 bool verifUser(usuario user);
 void atencionesVeterinarios();
 void rankingDeVeterinarios();
+void menu_principal(usuario user);
 
 int main(int argc, char const *argv[])
 {
+    system("mode 120,35");
     usuario user;
-    registroUser(user);
+    menu_principal(user);
     return 0;
+}
+
+
+void menu_principal(usuario user){
+	
+	bool band=true;
+	int Op;
+	const char *titulo= "Modulo de Administracion";
+	const char *opciones[]={"Registrar Usuario", "Atenciones por Veterinarios", "Rankingde Veterinarios por Atenciones", "Salir"};
+	
+	do{
+		system("cls");
+		Op=menu(titulo, opciones, 4);
+		switch(Op){
+			case 1: system("cls"); registroUser(user);
+				break;
+			case 2: system("cls");atencionesVeterinarios();
+				break;
+			case 3: system("cls");rankingDeVeterinarios();
+				break;
+			case 4: band=false;
+				break;
+		}
+	}while(band);
+	system("cls");
+	gotoxy(40, 12); printf("Se cerro el modulo de administracion. Adios...\n\n\n\n");
+	system("pause>nul");
 }
 
 bool registroUser(usuario user){
