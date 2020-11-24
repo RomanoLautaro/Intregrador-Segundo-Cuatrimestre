@@ -47,9 +47,16 @@ usuario admin;
 
 int main(int argc, char const *argv[])
 {
-    if(login()==true) {
-        registrarMascota();
-    }
+    bool band=false;
+    system("mode 120,35");
+    do
+    {
+        system("cls");
+        if(login()==true) {
+            band = true;
+        }
+    } while (band==false);
+    registrarMascota();
     return 0;
 }
 
@@ -60,39 +67,71 @@ bool login(){
     if (arch==NULL)
     {
         printf("\n\n\t\t No se ha registrado ningun usuario. Por favor solicite uno para poder continuar.");
-        return false;
+        system("pause>nul");
+        system("exit");
+
     }else{
         do{
-            printf("\n\n\t\tUSUARIO: ");
+            textcolor(YELLOW);
+            marcoUsuario();
+            textcolor(BLACK);
+            textbackground(WHITE);
+            gotoxy(50, 10); printf(" INGRESO DE USUARIO ");
+            textbackground(BLACK);
+            textcolor(WHITE);
+            gotoxy(50, 17);printf("USUARIO: ");
             _flushall();
-            gets(user.usuario);
-            printf("\n\n\t\tCONTRASEÑA: ");
-            gets(user.contrasenia);
+            gotoxy(60, 17); gets(user.usuario);
+            gotoxy(50, 19);printf("CONTRASENIA: ");
+            gotoxy(64, 19);gets(user.contrasenia);
             rewind(arch);
             fread(&admin,sizeof(usuario),1,arch);
             while(!feof(arch)){
-                if(strcmp(user.usuario,admin.usuario)==0){
-                    if(strcmp(user.contrasenia,admin.contrasenia)==0){
-                        if(user.tipoUsuario == 'v' || user.tipoUsuario == 'V'){
-                        	printf("\n\t\t*Los veterinarios no pueden ingresar a este modulo *");
-                        	system("pause");
-                        	system("cls");
-                        	return false;
-						}else{
-							band=true;
+                if(user.tipoUsuario == 'A' || user.tipoUsuario == 'a'){
+                    if(strcmp(user.usuario,admin.usuario)==0){
+                        if(strcmp(user.contrasenia,admin.contrasenia)==0){
+                            band=true;
                         	break;
+						}else{
+                            textcolor(WHITE);
+                            textbackground(LIGHTRED);
+                            gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
+                            textcolor(BLACK);
+                            textbackground(WHITE);
+                            gotoxy(26-7, 21+7); printf(" La contraseña no coincide con el usuario. ");
+                            textbackground(BLACK);
+                            system("pause>nul");
+                            system("cls");
+                            return false;
+							
 						}
                     }else{
-                        printf("\n\t\t* La contraseña no coincide con el usuario *");
-                        system("pause");
-                        system("cls");
-                        return false;
+                        textcolor(WHITE);
+                        textbackground(LIGHTRED);
+                        gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
+                        textcolor(BLACK);
+                        textbackground(WHITE);
+                        gotoxy(26-7, 21+7); printf(" El usuario no existe. ");
+                        textbackground(BLACK);
+                        textcolor(WHITE);
+	                    system("pause>nul");
+	                    system("cls");
+	                    return false;
+                        
                     }
                 }else{
-	                printf("\n\t\t* El usuario no existe *");
-	                system("pause");
-	                system("cls");
-	                return false;
+                    textcolor(WHITE);
+                    textbackground(LIGHTRED);
+                    gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
+                    textcolor(BLACK);
+                    textbackground(WHITE);
+                    gotoxy(26-7, 21+7); printf(" Los veterinarios no pueden ingresar a este modulo. ");
+                    textbackground(BLACK);
+                    textcolor(WHITE);
+	                
+                    system("pause>nul");
+                	system("cls");
+                	return false;
                 }
                 fread(&admin,sizeof(usuario),1,arch);
             }

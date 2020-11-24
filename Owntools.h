@@ -18,6 +18,7 @@ void gotoxy(int x, int y);
 void textcolor(int newcolor);
 void textbackground(int newcolor);
 void marco();
+void marcoUsuario();
 
 //FUNCIONES
 
@@ -123,7 +124,7 @@ int menu(const char *titulo, const char *opciones[], int N){
 				case UP:
 						gotoxy(40, 9+opcSeleccionada); textcolor(CYAN); printf("   "); textcolor(WHITE);
 						opcSeleccionada++;
-						if(opcSeleccionada>5){
+						if(opcSeleccionada>4){
 							opcSeleccionada=1;
 						}
 						Beep(1300, 50);
@@ -144,3 +145,17 @@ int menu(const char *titulo, const char *opciones[], int N){
 	}while(band);
 	return opcSeleccionada;
 }
+
+// void marcoUsuario(){
+// 	for(int i=35; i<98; i++){
+// 		gotoxy(i, 5); printf("%c", 219);
+// 		gotoxy(i, 25); printf("%c", 219);
+// 	}
+	
+// 	for(int i=5; i<26; i++){
+// 		gotoxy(35, i); printf("%c", 219);
+// 		gotoxy(97, i); printf("%c", 124);
+// 		gotoxy(34, i); printf("%c", 219);
+// 		gotoxy(98, i); printf("%c", 124);
+// 	}
+// }

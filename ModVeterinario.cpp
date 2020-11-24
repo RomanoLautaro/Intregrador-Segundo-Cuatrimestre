@@ -42,27 +42,30 @@ struct mascota{
 	float peso;
 	char telefono[25];
 };
-struct usuarioLogueado{
-	bool inicioDeSesion;
-	int DNI;
-}
 
-bool login(usuarioLogueado userlog);
-void listaDeEspera(usuarioLogueado userlog);
-void registrarEvolucion(usuarioLogueado userlog);
+bool login();
+void listaDeEspera();
+void registrarEvolucion();
+
+usuario admin;
 
 int main(int argc, char const *argv[])
 {
-	usuarioLogueado userlog;
-    if(login(userlog)==true) {
-        
-    }
+    bool band=false;
+    do
+    {
+        system("cls");
+        if(login()==true) {
+            band = true;
+        }
+    } while (band==false);
+    
     return 0;
 }
-bool login(usuarioLogueado userlog){
+
+bool login(){
     FILE *arch=fopen("Usuarios.dat", "r+b");
     usuario user;
-    
     bool band=false;
     if (arch==NULL)
     {
@@ -78,31 +81,30 @@ bool login(usuarioLogueado userlog){
             rewind(arch);
             fread(&admin,sizeof(usuario),1,arch);
             while(!feof(arch)){
-                if(strcmp(user.usuario,admin.usuario)==0){
-                    if(strcmp(user.contrasenia,admin.contrasenia)==0){
-                        if(user.tipoUsuario == 'v' || user.tipoUsuario == 'V'){
-                        	band=true;
-                        	userlog.inicioDeSesion=true;
-                        	userlog.DNI=user.dni;
+                if(user.tipoUsuario == 'V' || user.tipoUsuario == 'v'){
+                    if(strcmp(user.usuario,admin.usuario)==0){
+                        if(strcmp(user.contrasenia,admin.contrasenia)==0){
+                            band=true;
                         	break;
-                        	
 						}else{
-							printf("\n\t\t*Solo los veterinarios  pueden ingresar a este modulo *");
-                        	system("pause");
-                        	system("cls");
-                        	return false;
+                            printf("\n\t\t* La contraseña no coincide con el usuario *");
+                            system("pause");
+                            system("cls");
+                            return false;
+							
 						}
                     }else{
-                        printf("\n\t\t* La contraseña no coincide con el usuario *");
-                        system("pause");
-                        system("cls");
-                        return false;
+                        printf("\n\t\t* El usuario no existe *");
+	                    system("pause");
+	                    system("cls");
+	                    return false;
+                        
                     }
                 }else{
-	                printf("\n\t\t* El usuario no existe *");
-	                system("pause");
-	                system("cls");
-	                return false;
+	                printf("\n\t\t*SOolo los veterinarios pueden ingresar a este modulo *");
+                    system("pause");
+                	system("cls");
+                	return false;
                 }
                 fread(&admin,sizeof(usuario),1,arch);
             }
@@ -111,49 +113,42 @@ bool login(usuarioLogueado userlog){
         return true;
     }
     fclose(arch);
+    
 }
 
-void listaDeEspera(usuarioLogueado userlog){
+void listaDeEspera(){
 	turnos tur;
 	veterinario vet;
-	if(userlog.inicioDeSesion==true){
-		
-		FILE *arch=fopen("Turnos.dat","r+b");
-		File *arch1=fopen("Veterinario.dat","r+b");
-		rewind(arch1);
-		fread(&vet,sizeof(vet),1,arch1);
-		while(!feof(arch1)){
-			if(vet.dni==userlog.DNI){
-			
-				printf("\n\t\\tLista de espera\n\t==================================================\n")
-				rewind(arch);
-				fread(&tur,sizeof(tur),1,arch);
-				while(!feof(arch)){
-					if(tur.matriculaVet==vet.matricula){
-						if(tur.atendido==false){
-							printf("\n=====================================================\n");
-							printf("\t\tDNI del duenio: %d\n",tur.dni_duenio);
-							printf("\t\tFecha en la que se otorgo el turno: %d-%d-%d\n",tur.fec.dia,tur.fec.mes,tur.fec.anio);
-						}
+
+	FILE *arch=fopen("Turnos.dat","r+b");
+	FILE *arch1=fopen("Veterinario.dat","r+b");
+	rewind(arch1);
+	fread(&vet,sizeof(vet),1,arch1);
+	while(!feof(arch1))
+	{
+			printf("\n\t\\tLista de espera\n\t==================================================\n")
+			rewind(arch);
+			fread(&tur,sizeof(tur),1,arch);
+			while(!feof(arch)){
+				if(tur.matriculaVet==vet.matricula){
+					if(tur.atendido==false){
+						printf("\n=====================================================\n");
+						printf("\t\tDNI del duenio: %d\n",tur.dni_duenio);
+						printf("\t\tFecha en la que se otorgo el turno: %d-%d-%d\n",tur.fec.dia,tur.fec.mes,tur.fec.anio);
 					}
-					
-					fread(&tur,sizeof(tur),1,arch);
 				}
-				
+				fread(&tur,sizeof(tur),1,arch);
 			}
-			fread(&vet,sizeof(vet),1,arch1);
-		}
+				
+		fread(&vet,sizeof(vet),1,arch1);
+	}
 	
-		fclose(arch);
-		fclose(arch1);
-	}
-	else{
-		printf("ERROR: Debe iniciar sesion para poder visualizar la lista de espera...");
-		system("pause");
-	}
+	fclose(arch);
+	fclose(arch1);
 	
 }
 
+void registrarEvolucion(){
+	FILE *arch = fopen("Turnos.dat", "a+b");
 
-
-
+}

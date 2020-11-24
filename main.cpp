@@ -1,7 +1,4 @@
-
-
 #include "Owntools.h"
-
 
 using namespace std;
 
@@ -39,13 +36,13 @@ bool verificarPassword(usuario pass);
 bool verifUser(usuario user);
 void atencionesVeterinarios();
 void rankingDeVeterinarios();
-void menu_principal(usuario user);
-
+void menu_principal(usuario user);    
+ 
 int main(int argc, char const *argv[])
 {
     system("mode 120,35");
-    usuario user;
-    menu_principal(user);
+    usuario user; 
+    menu_principal(user);    
     return 0;
 }
 
@@ -55,7 +52,7 @@ void menu_principal(usuario user){
 	bool band=true;
 	int Op;
 	const char *titulo= "Modulo de Administracion";
-	const char *opciones[]={"Registrar Usuario", "Atenciones por Veterinarios", "Rankingde Veterinarios por Atenciones", "Salir"};
+	const char *opciones[]={"Registrar Usuario", "Atenciones por Veterinarios", "Ranking de Veterinarios por Atenciones", "Salir"};
 	
 	do{
 		system("cls");
@@ -105,7 +102,7 @@ bool registroUser(usuario user){
                 printf("\n\t\t\tEL USUARIO INGRESADO YA EXISTE, VUELVA A INTENTAR.");
             }
             
-        }else system("pause");	
+        }else system("pause>nul");	
 		
         
     } while (band==true or vBool==false);
