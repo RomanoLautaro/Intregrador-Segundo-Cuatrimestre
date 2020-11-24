@@ -4,11 +4,14 @@
 #define DOWN 72
 #define ENTER 13
 
+
+
 void menu_principal();
 int menu(const char *titulo, const char *opciones[], int N);
 
 
 int main(){
+	system("mode 120,35");
     menu_principal();
     return 0;
 }
@@ -50,43 +53,55 @@ int menu(const char *titulo, const char *opciones[], int N){
 	
 	int opcSeleccionada=1, tecla;
 	bool band=true;
+	textcolor(LIGHTRED);
+	marco();
+	textcolor(BLACK);
+	textbackground(WHITE);
+	gotoxy(50, 5); printf("%s", titulo);
+	textcolor(WHITE);
+	gotoxy(49, 5); printf("%c", 219);
+	gotoxy(50+24, 5); printf("%c", 219);
+	//gotoxy(56, 5); printf("%cBIENVENIDO%c", 173, 33);
+	textbackground(BLACK);
+	// textcolor(WHITE);
+	//gotoxy(50, 7); printf("%s", titulo);
+	textcolor(RED);
+	gotoxy(19, 21); printf("%cNOTA:", 175);
+	textcolor(WHITE);
+	gotoxy(26, 21); printf("Utilize las flechas direccionales para moverse en las opciones y ENTER para seleccionar.");
+	for(int i=0; i<N; i++){
 		
+		gotoxy(44, 10+i); printf("%d- %s", i+1, opciones[i]);
+	}
 	do{
-		system("cls");
-		marco();
-		textcolor(YELLOW);
-		gotoxy(56, 3); printf("%cBIENVENIDO%c", 173, 33);
-		textcolor(WHITE);
-		gotoxy(40, 9+opcSeleccionada); textcolor(CYAN); printf("==>"); textcolor(WHITE);
-		gotoxy(50, 7); printf("%s", titulo);
-		textcolor(RED);
-		gotoxy(19, 19); printf("%cNOTA:", 175);
-		textcolor(WHITE);
-		gotoxy(26, 19); printf("Utilize las flechas direccionales para moverse en las opciones y ENTER para seleccionar.");
-			for(int i=0; i<N; i++){
-				gotoxy(44, 10+i); printf("%d- %s", i+1, opciones[i]);
-			}
+
+		gotoxy(40, 9+opcSeleccionada); textcolor(YELLOW); printf("==>"); textcolor(WHITE);
+
+			
 			do{
+				gotoxy(119, 34);
 				tecla= getch();  
 			}while(tecla!=UP && tecla!=DOWN && tecla!=ENTER);
 			switch(tecla){
 				case UP:
+						gotoxy(40, 9+opcSeleccionada); textcolor(CYAN); printf("   "); textcolor(WHITE);
 						opcSeleccionada++;
 						if(opcSeleccionada>5){
 							opcSeleccionada=1;
 						}
-						Beep(1300, 100);
+						Beep(1300, 50);
 					break;
 				case DOWN: 
+						gotoxy(40, 9+opcSeleccionada); textcolor(CYAN); printf("   "); textcolor(WHITE);
 						opcSeleccionada--;
 						if(opcSeleccionada<1){
 							opcSeleccionada=N;
 						}
-						Beep(1300, 100);
+						Beep(1300, 50);
 					break;
 				case ENTER:
 						band=false;
-						Beep(800, 100); 
+						Beep(800, 50); 
 					break;
 			}
 	}while(band);

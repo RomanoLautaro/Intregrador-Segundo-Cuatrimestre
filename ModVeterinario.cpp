@@ -111,7 +111,6 @@ bool login(usuarioLogueado userlog){
         return true;
     }
     fclose(arch);
-    
 }
 
 void listaDeEspera(usuarioLogueado userlog){

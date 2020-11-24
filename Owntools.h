@@ -6,7 +6,7 @@
 
 text_info vActual = {0, 0, 79, 24, WHITE, WHITE, C80, 25, 80, 1, 1};
 
-//DECLARACIÓN DE FUNCIONES
+//DECLARACIï¿½N DE FUNCIONES
 
 void gotoxy(int x, int y);
 void textcolor(int newcolor);
@@ -23,6 +23,8 @@ void gotoxy(int x, int y){
 	dwPos.Y=y;
 	SetConsoleCursorPosition(hcon, dwPos);
 }
+
+
 
 void textcolor(int newcolor){
    CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -43,19 +45,20 @@ void textbackground(int newcolor){
 }
 
 void marco(){
-	textcolor(WHITE);
-	for(int i=37; i<87; i++){
-		gotoxy(i, 5); printf("%c", 205);
-		gotoxy(i, 16); printf("%c", 205);
+	for(int i=36; i<88; i++){
+		gotoxy(i, 5); printf("%c", 219);
+		gotoxy(i, 18); printf("%c", 219);
 	}
 	
-	for(int i=6; i<16; i++){
-		gotoxy(36, i); printf("%c", 186);
-		gotoxy(87, i); printf("%c", 186);
+	for(int i=5; i<19; i++){
+		gotoxy(36, i); printf("%c", 219);
+		gotoxy(35, i); printf("%c", 124);
+		gotoxy(87, i); printf("%c", 219);
+		gotoxy(88, i); printf("%c", 124);
 	}
 	
-	gotoxy(36, 5); printf("%c", 201);
-	gotoxy(87, 5); printf("%c", 187);
-	gotoxy(36, 16); printf("%c", 200);
-	gotoxy(87, 16); printf("%c", 188);
+	// gotoxy(36, 5); printf("%c", 219);
+	// gotoxy(87, 5); printf("%c", 219);
+	// gotoxy(36, 16); printf("%c", 219);
+	// gotoxy(87, 16); printf("%c", 219);
 }
