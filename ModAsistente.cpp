@@ -48,7 +48,7 @@ usuario admin;
 int main(int argc, char const *argv[])
 {
     bool band=false;
-    system("mode 120,35");
+    
     do
     {
         system("cls");
@@ -64,33 +64,36 @@ bool login(){
     FILE *arch=fopen("Usuarios.dat", "r+b");
     usuario user;
     bool band=false;
+    system("mode 120,35");
     if (arch==NULL)
     {
         printf("\n\n\t\t No se ha registrado ningun usuario. Por favor solicite uno para poder continuar.");
         system("pause>nul");
         system("exit");
-
+    
     }else{
         do{
             textcolor(YELLOW);
-            marcoUsuario();
+            marcoGenerico(40,80,9,23);
             textcolor(BLACK);
             textbackground(WHITE);
-            gotoxy(50, 10); printf(" INGRESO DE USUARIO ");
+            gotoxy(50, 9); printf(" INGRESO DE USUARIO ");
             textbackground(BLACK);
             textcolor(WHITE);
-            gotoxy(50, 17);printf("USUARIO: ");
+            gotoxy(50, 15);printf("USUARIO: ");
+            gotoxy(50, 17);printf("CONTRASE%cA: ", 165);
             _flushall();
-            gotoxy(60, 17); gets(user.usuario);
-            gotoxy(50, 19);printf("CONTRASENIA: ");
-            gotoxy(64, 19);gets(user.contrasenia);
+            gotoxy(58, 16); gets(user.usuario);
+            password(61, 18, user.contrasenia);
+            //gotoxy(63, 17);gets(user.contrasenia);
             rewind(arch);
             fread(&admin,sizeof(usuario),1,arch);
             while(!feof(arch)){
-                if(user.tipoUsuario == 'A' || user.tipoUsuario == 'a'){
+                if(admin.tipoUsuario == 'A' || admin.tipoUsuario == 'a'){
                     if(strcmp(user.usuario,admin.usuario)==0){
                         if(strcmp(user.contrasenia,admin.contrasenia)==0){
                             band=true;
+                            system("cls");
                         	break;
 						}else{
                             textcolor(WHITE);

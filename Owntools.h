@@ -18,8 +18,8 @@ void gotoxy(int x, int y);
 void textcolor(int newcolor);
 void textbackground(int newcolor);
 void marco();
-void marcoUsuario();
-
+void marcoGenerico(int x1, int x2, int y1, int y2);
+void password(int x, int y, char contrasenia[]);
 //FUNCIONES
 
 void ocultarCursor(){
@@ -146,16 +146,45 @@ int menu(const char *titulo, const char *opciones[], int N){
 	return opcSeleccionada;
 }
 
-// void marcoUsuario(){
-// 	for(int i=35; i<98; i++){
-// 		gotoxy(i, 5); printf("%c", 219);
-// 		gotoxy(i, 25); printf("%c", 219);
-// 	}
+void marcoGenerico(int x1, int x2, int y1, int y2){
+	for(int i=x1; i<x2+1; i++){
+		gotoxy(i, y1); printf("%c", 219);
+		gotoxy(i, y2); printf("%c", 219);
+	}
 	
-// 	for(int i=5; i<26; i++){
-// 		gotoxy(35, i); printf("%c", 219);
-// 		gotoxy(97, i); printf("%c", 124);
-// 		gotoxy(34, i); printf("%c", 219);
-// 		gotoxy(98, i); printf("%c", 124);
-// 	}
-// }
+	for(int i=y1; i<y2+1; i++){
+		gotoxy(x1, i); printf("%c", 219);
+		gotoxy(x2, i); printf("%c", 219);
+		gotoxy(x1-1, i); printf("%c", 124);
+		gotoxy(x2+1, i); printf("%c", 124);
+	}
+}
+
+void password(int x, int y, char contrasenia[]){
+	int i=0;
+	char pass[32], caracter;
+	
+	gotoxy(x,y);
+	caracter=getch();
+	while(caracter!=ENTER){
+		if (caracter==8)
+		{
+			if (i>0)
+			{
+				i--;
+				printf("\b \b");
+				
+			}
+			
+		}else if(i!=32)
+		{
+			printf("*");
+			pass[i]=caracter;
+			i++;
+		}
+		caracter=getch();	
+	}
+	pass[i]='\0';
+	strcpy(contrasenia,pass);
+
+}
