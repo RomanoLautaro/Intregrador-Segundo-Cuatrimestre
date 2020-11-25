@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "conio.h"
-#include "conio.c"
-#include <string.h>
-#include <iostream>
+#include "Owntools.h"
 
 using namespace std;
 struct usuario{
@@ -67,42 +62,80 @@ bool login(){
     FILE *arch=fopen("Usuarios.dat", "r+b");
     usuario user;
     bool band=false;
+    system("mode 120,35");
     if (arch==NULL)
     {
         printf("\n\n\t\t No se ha registrado ningun usuario. Por favor solicite uno para poder continuar.");
-        return false;
+        system("pause>nul");
+        system("exit");
+    
     }else{
         do{
-            printf("\n\n\t\tUSUARIO: ");
+            textcolor(YELLOW);
+            marcoGenerico(25,95,9,23);
+            textcolor(BLACK);
+            textbackground(WHITE);
+            gotoxy(50, 9); printf(" INGRESO DE USUARIO ");
+            textbackground(BLACK);
+            textcolor(WHITE);
+            gotoxy(50-10, 15);printf("USUARIO: ");
+            gotoxy(50-13, 17);printf("CONTRASE%cA: ", 165);
             _flushall();
-            gets(user.usuario);
-            printf("\n\n\t\tCONTRASEÑA: ");
-            gets(user.contrasenia);
+            gotoxy(58-10, 15); textbackground(WHITE); printf("                                 ");
+            gotoxy(61-13, 17); textbackground(WHITE); printf("                                 ");
+            textcolor(BLACK);
+            gotoxy(58-10, 15); gets(user.usuario);
+            password(61-13, 17 , user.contrasenia);
+            //gotoxy(63, 17);gets(user.contrasenia);
+            textcolor(WHITE);
+            textbackground(BLACK);
             rewind(arch);
             fread(&admin,sizeof(usuario),1,arch);
             while(!feof(arch)){
-                if(user.tipoUsuario == 'V' || user.tipoUsuario == 'v'){
+                if(admin.tipoUsuario == 'V' || admin.tipoUsuario == 'v'){
                     if(strcmp(user.usuario,admin.usuario)==0){
                         if(strcmp(user.contrasenia,admin.contrasenia)==0){
                             band=true;
+                            system("cls");
                         	break;
 						}else{
-                            printf("\n\t\t* La contraseña no coincide con el usuario *");
-                            system("pause");
+                            textcolor(WHITE);
+                            textbackground(LIGHTRED);
+                            gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
+                            textcolor(BLACK);
+                            textbackground(WHITE);
+                            gotoxy(26-7, 21+7); printf(" La contraseña no coincide con el usuario. ");
+                            textbackground(BLACK);
+                            system("pause>nul");
                             system("cls");
                             return false;
 							
 						}
                     }else{
-                        printf("\n\t\t* El usuario no existe *");
-	                    system("pause");
+                        textcolor(WHITE);
+                        textbackground(LIGHTRED);
+                        gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
+                        textcolor(BLACK);
+                        textbackground(WHITE);
+                        gotoxy(26-7, 21+7); printf(" El usuario no existe. ");
+                        textbackground(BLACK);
+                        textcolor(WHITE);
+	                    system("pause>nul");
 	                    system("cls");
 	                    return false;
                         
                     }
                 }else{
-	                printf("\n\t\t*Solo los veterinarios pueden ingresar a este modulo *");
-                    system("pause");
+                    textcolor(WHITE);
+                    textbackground(LIGHTRED);
+                    gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
+                    textcolor(BLACK);
+                    textbackground(WHITE);
+                    gotoxy(26-7, 21+7); printf(" Solo veterinarios pueden ingresar a este modulo. ");
+                    textbackground(BLACK);
+                    textcolor(WHITE);
+	                
+                    system("pause>nul");
                 	system("cls");
                 	return false;
                 }

@@ -74,18 +74,23 @@ bool login(){
     }else{
         do{
             textcolor(YELLOW);
-            marcoGenerico(40,80,9,23);
+            marcoGenerico(25,95,9,23);
             textcolor(BLACK);
             textbackground(WHITE);
             gotoxy(50, 9); printf(" INGRESO DE USUARIO ");
             textbackground(BLACK);
             textcolor(WHITE);
-            gotoxy(50, 15);printf("USUARIO: ");
-            gotoxy(50, 17);printf("CONTRASE%cA: ", 165);
+            gotoxy(50-10, 15);printf("USUARIO: ");
+            gotoxy(50-13, 17);printf("CONTRASE%cA: ", 165);
             _flushall();
-            gotoxy(58, 16); gets(user.usuario);
-            password(61, 18, user.contrasenia);
+            gotoxy(58-10, 15); textbackground(WHITE); printf("                                 ");
+            gotoxy(61-13, 17); textbackground(WHITE); printf("                                 ");
+            textcolor(BLACK);
+            gotoxy(58-10, 15); gets(user.usuario);
+            password(61-13, 17 , user.contrasenia);
             //gotoxy(63, 17);gets(user.contrasenia);
+            textcolor(WHITE);
+            textbackground(BLACK);
             rewind(arch);
             fread(&admin,sizeof(usuario),1,arch);
             while(!feof(arch)){
