@@ -43,6 +43,7 @@ void registrarMascota();
 void registrarTurno();
 void listadoAtenciones();
 void password(int x, int y, char contrasenia[]);
+void menuPrincipal();
 
 usuario admin;
 
@@ -57,11 +58,49 @@ int main(int argc, char const *argv[])
             band = true;
         }
     } while (band==false);
-    registrarMascota();
+    menuPrincipal();
     return 0;
 }
 //user=iGNa23
 //pass=aS15sO
+void menuPrincipal(){
+	
+	bool band=true;
+	int Op;
+	const char *titulo= "Modulo de Veterinarios";
+	const char *opciones[]={"Registrar mascota", "Registrar turno","Listado de atenciones por veterinarios" , "Salir"};
+	
+	do{
+		
+		system("cls");
+		textcolor(WHITE);
+		for(int i=35; i<88+1; i++){
+		gotoxy(i, 20); printf("%c", 219);
+		gotoxy(i, 25); printf("%c", 219);
+		}
+		for(int i=20; i<25+1; i++){
+			gotoxy(35, i); printf("%c", 178);
+			gotoxy(88, i); printf("%c", 178);
+		}
+		textcolor(YELLOW);
+		gotoxy(38, 22); printf("USUARIO: %s", admin.usuario);
+		gotoxy(38, 23); printf("NOMBRE: %s", admin.apeNom);
+		Op=menu(titulo, opciones, 4);
+		switch(Op){
+			case 1: system("cls"); registrarMascota();
+				break;
+			case 2: system("cls");registrarTurno();
+				break;
+			case 3: system("cls"); listadoAtenciones();
+				break;
+			case 4: band=false;
+				break;
+		}
+	}while(band);
+	system("cls");
+	gotoxy(40, 12); printf("Se cerro el modulo de administracion. Adios...\n\n\n\n");
+	system("pause>nul");
+}
 
 void password(int x, int y, char contrasenia[]){
 	int i=0;
@@ -250,7 +289,7 @@ void registrarTurno(){
     scanf("%d", &tur.fec.anio);
     tur.atendido=false;
 
-	fwrite(&tur, sizeof(mascota), 1, arch);
+	fwrite(&tur, sizeof(turnos), 1, arch);
 	printf("\n\t\tTurno registrado exitosamente...");
 	system("pause");
 	fclose(arch);
@@ -295,6 +334,8 @@ void listadoAtenciones(){
 
         fread(&vet,sizeof(veterinario),1,arch1);
     }
+    printf("\n\n");
+    system("pause");
     fclose(arch);
     fclose(arch1);
 }
