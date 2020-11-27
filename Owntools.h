@@ -124,7 +124,7 @@ int menu(const char *titulo, const char *opciones[], int N){
 				case UP:
 						gotoxy(40, 9+opcSeleccionada); textcolor(CYAN); printf("   "); textcolor(WHITE);
 						opcSeleccionada++;
-						if(opcSeleccionada>4){
+						if(opcSeleccionada>N){
 							opcSeleccionada=1;
 						}
 						Beep(1300, 50);
@@ -160,31 +160,31 @@ void marcoGenerico(int x1, int x2, int y1, int y2){
 	}
 }
 
-void password(int x, int y, char contrasenia[]){
-	int i=0;
-	char pass[32], caracter;
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+// 	char pass[32], caracter;
 	
-	gotoxy(x,y);
-	caracter=getch();
-	while(caracter!=ENTER){
-		if (caracter==8)
-		{
-			if (i>0)
-			{
-				i--;
-				printf("\b \b");
+// 	gotoxy(x,y);
+// 	caracter=getch();
+// 	while(caracter!=ENTER){
+// 		if (caracter==8)
+// 		{
+// 			if (i>0)
+// 			{
+// 				i--;
+// 				printf("\b \b");
 				
-			}
+// 			}
 			
-		}else if(i!=32)
-		{
-			printf("*");
-			pass[i]=caracter;
-			i++;
-		}
-		caracter=getch();	
-	}
-	pass[i]='\0';
-	strcpy(contrasenia,pass);
+// 		}else if(i!=32)
+// 		{
+// 			printf("*");
+// 			pass[i]=caracter;
+// 			i++;
+// 		}
+// 		caracter=getch();	
+// 	}
+// 	pass[i]='\0';
+// 	strcpy(contrasenia,pass);
 
-}
+// }

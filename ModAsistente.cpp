@@ -42,6 +42,7 @@ bool login();
 void registrarMascota();
 void registrarTurno();
 void listadoAtenciones();
+void password(int x, int y, char contrasenia[]);
 
 usuario admin;
 
@@ -59,11 +60,43 @@ int main(int argc, char const *argv[])
     registrarMascota();
     return 0;
 }
+//user=iGNa23
+//pass=aS15sO
+
+void password(int x, int y, char contrasenia[]){
+	int i=0;
+	char pass[32], caracter;
+	
+	gotoxy(x,y);
+	caracter=getch();
+	while(caracter!=ENTER){
+		if (caracter==8)
+		{
+			if (i>0)
+			{
+				i--;
+				printf("\b \b");
+				
+			}
+			
+		}else if(i!=32)
+		{
+			printf("*");
+			pass[i]=caracter;
+			i++;
+		}
+		caracter=getch();	
+	}
+	pass[i]='\0';
+	strcpy(contrasenia,pass);
+
+}
 
 bool login(){
     FILE *arch=fopen("Usuarios.dat", "r+b");
     usuario user;
     bool band=false;
+    int error=0;
     system("mode 120,35");
     if (arch==NULL)
     {
@@ -94,39 +127,43 @@ bool login(){
             rewind(arch);
             fread(&admin,sizeof(usuario),1,arch);
             while(!feof(arch)){
+                if(strcmp(user.usuario,admin.usuario)==0){
+                    band=true;
+                    break; 
+                }
+                //else{
+
+                //     textcolor(WHITE);
+                //     textbackground(LIGHTRED);
+                //     gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
+                //     textcolor(BLACK);
+                //     textbackground(WHITE);
+                //     gotoxy(26-7, 21+7); printf(" El usuario no existe. ");
+                //     textbackground(BLACK);
+                //     textcolor(WHITE);
+	            //     system("pause>nul");
+	            //     system("cls");
+	            //     return false;
+                // }
+                fread(&admin,sizeof(usuario),1,arch);
+            }
+            if(band==true){
                 if(admin.tipoUsuario == 'A' || admin.tipoUsuario == 'a'){
-                    if(strcmp(user.usuario,admin.usuario)==0){
-                        if(strcmp(user.contrasenia,admin.contrasenia)==0){
+                    if(strcmp(user.contrasenia,admin.contrasenia)==0){
                             band=true;
                             system("cls");
-                        	break;
-						}else{
-                            textcolor(WHITE);
-                            textbackground(LIGHTRED);
-                            gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
-                            textcolor(BLACK);
-                            textbackground(WHITE);
-                            gotoxy(26-7, 21+7); printf(" La contraseña no coincide con el usuario. ");
-                            textbackground(BLACK);
-                            system("pause>nul");
-                            system("cls");
-                            return false;
-							
-						}
-                    }else{
+					}else{
                         textcolor(WHITE);
                         textbackground(LIGHTRED);
                         gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
                         textcolor(BLACK);
                         textbackground(WHITE);
-                        gotoxy(26-7, 21+7); printf(" El usuario no existe. ");
+                        gotoxy(26-7, 21+7); printf(" La contraseña no coincide con el usuario. ");
                         textbackground(BLACK);
-                        textcolor(WHITE);
-	                    system("pause>nul");
-	                    system("cls");
-	                    return false;
-                        
-                    }
+                        system("pause>nul");
+                        system("cls");	
+                        band=false;	
+					}
                 }else{
                     textcolor(WHITE);
                     textbackground(LIGHTRED);
@@ -136,20 +173,29 @@ bool login(){
                     gotoxy(26-7, 21+7); printf(" Los veterinarios no pueden ingresar a este modulo. ");
                     textbackground(BLACK);
                     textcolor(WHITE);
-	                
                     system("pause>nul");
-                	system("cls");
-                	return false;
+                    system("cls");
+                    band=false;	
                 }
-                fread(&admin,sizeof(usuario),1,arch);
+            }else{
+                textcolor(WHITE);
+                textbackground(LIGHTRED);
+                gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
+                textcolor(BLACK);
+                textbackground(WHITE);
+                gotoxy(26-7, 21+7); printf(" El usuario no existe. ");
+                textbackground(BLACK);
+                system("pause>nul");
+                system("cls");
             }
-            
         } while (band==false);
+        fclose(arch);
         return true;
     }
-    fclose(arch);
+    
     
 }
+
 
 void registrarMascota(){
 	mascota animal;
