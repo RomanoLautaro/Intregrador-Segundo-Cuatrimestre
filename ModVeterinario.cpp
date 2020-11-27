@@ -50,6 +50,7 @@ veterinario datos;
 int main(int argc, char const *argv[])
 {
     bool band=false;
+	system("mode 120,35");
     do
     {
         system("cls");
@@ -69,7 +70,20 @@ void menuPrincipal(){
 	const char *opciones[]={"Visualizar Lista de Espera", "Registrar Evolucion de Mascota", "Salir"};
 	
 	do{
+		
 		system("cls");
+		textcolor(WHITE);
+		for(int i=35; i<88+1; i++){
+		gotoxy(i, 20); printf("%c", 219);
+		gotoxy(i, 25); printf("%c", 219);
+		}
+		for(int i=20; i<25+1; i++){
+			gotoxy(35, i); printf("%c", 178);
+			gotoxy(88, i); printf("%c", 178);
+		}
+		textcolor(YELLOW);
+		gotoxy(38, 22); printf("USUARIO: %s", admin.usuario);
+		gotoxy(38, 23); printf("NOMBRE: %s", admin.apeNom);
 		Op=menu(titulo, opciones, 3);
 		switch(Op){
 			case 1: system("cls"); listaDeEspera();
@@ -231,7 +245,7 @@ void listaDeEspera(){
 	veterinario vet;
 	mascota masc;
 	int dniduenio;
-	bool band=false;
+	bool band=false,turnoparavet=false;
 	char opc;
 
 	FILE *arch=fopen("Turnos.dat","r+b");
@@ -265,9 +279,11 @@ void listaDeEspera(){
 						{
 							if (tur.atendido == false)
 							{
-								printf("\n=====================================================\n");
+								printf("\n\t\t=====================================================\n");
 								printf("\t\tDNI del duenio: %d\n", tur.dni_duenio);
 								printf("\t\tFecha en la que se otorgo el turno: %d-%d-%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
+								turnoparavet = true;
+								printf("\n\t\t=====================================================\n");
 							}
 						}
 						fread(&tur, sizeof(tur), 1, arch);
@@ -275,33 +291,39 @@ void listaDeEspera(){
 				}
 				fread(&vet, sizeof(vet), 1, arch1);
 			}
-			do{
-				printf("\n\n\t\tDesea ver informacion de alguna mascota? [s/n]");
-				scanf("%c",&opc);
-				if(opc == 's' || opc == 'S'){
-					printf("\n\t\tIngrese dni del duenio de la mascota: ");
-					scanf("%d",&dniduenio);
-					rewind(arch2);
-					fread(&masc,sizeof(mascota),1,arch2);
-					while(!feof(arch2) && band==false){
-						if(dniduenio==masc.dniDuenio){
-							printf("\n\n\t\tNombre y apellido: %s",masc.apeNom);
-							printf("\n\t\tPeso: %.2f",masc.peso);
-							printf("\n\t\tFecha de nacimiento: %d-%d-%d",masc.fechaDeNac.dia,masc.fechaDeNac.mes,masc.fechaDeNac.anio);
-							printf("\n\t\tLocalidad: %s",masc.localidad);
-							printf("\n\t\tDomicilio: %s",masc.domicilio);
-							printf("\n\t\tDni del duenio: %d",masc.dniDuenio);
-							printf("\n\t\tTelefono: %s",masc.telefono);
-							band=true;
-					
-						}
+			if(turnoparavet==true){
+				do{
+					printf("\n\n\t\tDesea ver informacion de alguna mascota? [s/n]: ");
+					fflush(stdin);
+					scanf("%c",&opc);
+					if(opc == 's' || opc == 'S'){
+						printf("\n\t\tIngrese dni del duenio de la mascota: ");
+						scanf("%d",&dniduenio);
+						rewind(arch2);
 						fread(&masc,sizeof(mascota),1,arch2);
+						while(!feof(arch2) && band==false){
+							if(dniduenio==masc.dniDuenio){
+								printf("\n\n\t\tNombre y apellido: %s",masc.apeNom);
+								printf("\n\t\tPeso: %.2f",masc.peso);
+								printf("\n\t\tFecha de nacimiento: %d-%d-%d",masc.fechaDeNac.dia,masc.fechaDeNac.mes,masc.fechaDeNac.anio);
+								printf("\n\t\tLocalidad: %s",masc.localidad);
+								printf("\n\t\tDomicilio: %s",masc.domicilio);
+								printf("\n\t\tDni del duenio: %d",masc.dniDuenio);
+								printf("\n\t\tTelefono: %s",masc.telefono);
+								band=true;
+					
+							}
+							fread(&masc,sizeof(mascota),1,arch2);
+						}
+						if(band==false){
+							printf("\n\t\tNo se registro ninguna mascota con dicho dni...");
+						}
 					}
-					if(band==false){
-						printf("\n\t\tNo se registro ninguna mascota con dicho dni...");
-					}
-				}
-			}while(opc != 's' || opc != 'S');
+				}while(opc == 's' || opc == 'S');
+			}else{
+				printf("\n\t\tNo hay turnos registrados...");
+				system("pause");
+			}
 		}
 	fclose(arch);
 	fclose(arch1);
@@ -315,29 +337,38 @@ void registrarEvolucion(){
 	char  opc;
 	
 	FILE *arch = fopen("Turnos.dat", "a+b");
-	printf("\n\t\tIngrese dni del duenio de la mascota: ");
-	scanf("%d",&dniduenio);
-	do{
-		rewind(arch);
-		fread(&tur,sizeof(turnos),1,arch);
-		while(!feof(arch)&&band==false) {
-			if(tur.dni_duenio==dniduenio){
-				band=true;
-				printf("\n\t\tEvolucion de la mascota: ");
-				fflush(stdin);
-				gets(tur.detalles);
-			}
+	if(arch==NULL){
+		printf("\n\t\tNo hay turnos diaponibles para registrar evolucion...");
+		system("pause");
+	}else{
+		do{
+			printf("\n\t\tIngrese dni del duenio de la mascota: ");
+			scanf("%d",&dniduenio);
+			rewind(arch);
 			fread(&tur,sizeof(turnos),1,arch);
-		}
-		if(band==false){
-			printf("La mascota no pudo ser encontrada, desea intentar nuevamente? [s/n]: ");
-			scanf("%c",&opc);
-		}
-		else{
-			printf("\n\t\tEvolucion registrada con exito...");
-		}
+			while(!feof(arch)&&band==false) {
+				if(tur.dni_duenio==dniduenio){
+					band=true;
+					printf("\n\t\tEvolucion de la mascota: ");
+					fflush(stdin);
+					gets(tur.detalles);
+				}
+				fread(&tur,sizeof(turnos),1,arch);
+			}
+			if(band==false){
+				printf("La mascota no pudo ser encontrada, desea intentar nuevamente? [s/n]: ");
+				fflush(stdin);
+				scanf("%c",&opc);
+			}
+			else{
+				printf("\n\t\tEvolucion registrada con exito...");
+				opc='n';
+				system("pause");
+			}
 		
-	}while(opc!='s' || opc!='S');
+		}while(opc=='s' || opc=='S');
+	}
+	fclose(arch);
 }
 
 
