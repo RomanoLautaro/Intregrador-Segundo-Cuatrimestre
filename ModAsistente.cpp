@@ -50,7 +50,7 @@ usuario admin;
 int main(int argc, char const *argv[])
 {
     bool band=false;
-    
+    system("mode 120,35");
     do
     {
         system("cls");
@@ -58,7 +58,11 @@ int main(int argc, char const *argv[])
             band = true;
         }
     } while (band==false);
-    menuPrincipal();
+    while (band==true)
+    {
+        menuPrincipal();
+    }
+    
     return 0;
 }
 //user=iGNa23
@@ -92,7 +96,6 @@ void menuPrincipal(){
 			case 2: system("cls");registrarTurno();
 				break;
 			case 3: system("cls"); listadoAtenciones();
-				break;
 			case 4: band=false;
 				break;
 		}
@@ -197,7 +200,7 @@ bool login(){
                         gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
                         textcolor(BLACK);
                         textbackground(WHITE);
-                        gotoxy(26-7, 21+7); printf(" La contraseña no coincide con el usuario. ");
+                        gotoxy(26-7, 21+7); printf(" La contraseÃ±a no coincide con el usuario. ");
                         textbackground(BLACK);
                         system("pause>nul");
                         system("cls");	
@@ -289,7 +292,7 @@ void registrarTurno(){
     scanf("%d", &tur.fec.anio);
     tur.atendido=false;
 
-	fwrite(&tur, sizeof(turnos), 1, arch);
+	fwrite(&tur, sizeof(mascota), 1, arch);
 	printf("\n\t\tTurno registrado exitosamente...");
 	system("pause");
 	fclose(arch);
@@ -334,8 +337,7 @@ void listadoAtenciones(){
 
         fread(&vet,sizeof(veterinario),1,arch1);
     }
-    printf("\n\n");
-    system("pause");
+    system("pause<nul");
     fclose(arch);
     fclose(arch1);
 }
