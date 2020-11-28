@@ -106,7 +106,6 @@ bool registroUser(usuario user){
 		
         
     } while (band==true or vBool==false);
-    
     _flushall();
     do
     {

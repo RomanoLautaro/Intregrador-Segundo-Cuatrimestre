@@ -71,7 +71,7 @@ void menuPrincipal(){
 	
 	bool band=true;
 	int Op;
-	const char *titulo= "Modulo de Veterinarios";
+	const char *titulo= "Modulo de Asistentes";
 	const char *opciones[]={"Registrar mascota", "Registrar turno","Listado de atenciones por veterinarios" , "Salir"};
 	
 	do{
@@ -268,7 +268,7 @@ void registrarMascota(){
     scanf("%d", &animal.fechaDeNac.anio);
 
 	fwrite(&animal, sizeof(mascota), 1, arch);
-	printf("\n\t\tTurno registrado exitosamente...");
+	printf("\n\t\tMAscota registrada exitosamente...");
 	system("pause");
 	fclose(arch);
 }
@@ -277,7 +277,6 @@ void registrarTurno(){
 	turnos tur;
 	FILE *arch = fopen("Turnos.dat", "a+b");
 	
-	fseek(arch,sizeof(tur),SEEK_END);
 	printf("\n\t\tIngrese matricula del veterinario: ");
 	scanf("%d",&tur.matriculaVet);
     printf("\n\t\tIngrese DNI del duenio: ");
@@ -292,7 +291,7 @@ void registrarTurno(){
     scanf("%d", &tur.fec.anio);
     tur.atendido=false;
 
-	fwrite(&tur, sizeof(mascota), 1, arch);
+	fwrite(&tur, sizeof(turnos), 1, arch);
 	printf("\n\t\tTurno registrado exitosamente...");
 	system("pause");
 	fclose(arch);
