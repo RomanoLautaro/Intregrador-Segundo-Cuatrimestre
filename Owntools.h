@@ -20,6 +20,7 @@ void textbackground(int newcolor);
 void marco();
 void marcoGenerico(int x1, int x2, int y1, int y2);
 void password(int x, int y, char contrasenia[]);
+void barraPorcentaje(float Porcen, int x, int y);
 //FUNCIONES
 
 void ocultarCursor(){
@@ -158,6 +159,87 @@ void marcoGenerico(int x1, int x2, int y1, int y2){
 		gotoxy(x1-1, i); printf("%c", 124);
 		gotoxy(x2+1, i); printf("%c", 124);
 	}
+}
+
+void barraPorcentaje(float Porcen, int x, int y){
+	int porcent;
+	
+	porcent=Porcen;
+	textcolor(WHITE);
+	gotoxy(x,y); printf("%c", 222);
+	gotoxy(x+101,y); printf("%c", 221);
+	textbackground(LIGHTRED);
+	gotoxy(x+(porcent/2),y); printf("%.2f", Porcen);
+	textbackground(BLACK);
+	textcolor(LIGHTRED);
+	for(int i=0; i<porcent+1; i++){
+		gotoxy(x+i+1,y); printf("%c", 219);
+	}
+	textcolor(WHITE);
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
+}
+
+// void password(int x, int y, char contrasenia[]){
+// 	int i=0;
 }
 
 // void password(int x, int y, char contrasenia[]){

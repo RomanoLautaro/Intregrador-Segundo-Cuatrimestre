@@ -333,19 +333,16 @@ void atencionesVeterinarios(){
 void rankingDeVeterinarios(){
 	typedef char nombres[50];
 	nombres nombre[50];
-	int cont;
+	int cont, turnTotal=0, contLineas=0;
 	int c = 0;
     float porcen;
 	FILE *arch = fopen("Turnos.dat", "r+b");
 	FILE *arch1 = fopen("Veterinarios.dat", "r+b");
-    
     turnos turno;
-	veterinario vet;
+	veterinario vet;s
     fread(&turno,sizeof(turnos),1,arch);
 	while(!feof(arch)){
-		
 		if(turno.atendido==true) c++;
-		
 		fread(&turno,sizeof(turnos),1,arch);
     }
     rewind(arch);
@@ -361,12 +358,13 @@ void rankingDeVeterinarios(){
 			fread(&turno,sizeof(turnos),1,arch);
         }
         porcen=(float)cont*100/c;
-        printf("\n\t======================================================");
-		printf("\n\t\tNombre Veterinario: %s", vet.apeNom);
-		printf("\n\t\tCantidad de turnos: %d", cont);
-		printf("\n\t\tPorcentaje de turnos: %.2f", porcen);
-		cont = 0;
+        gotoxy(10,4+contLineas);printf("\n\t======================================================");
+		gotoxy(10,5+contLineas);printf("\n\t\tNombre Veterinario: %s", vet.apeNom);
+		gotoxy(10,6+contLineas);printf("\n\t\tCantidad de turnos: %d", cont);
+        barraPorcentaje(porcen,10,7+contLineas);
+        contLineas+=4;
 		fread(&vet, sizeof(veterinario), 1, arch1);
 	}
-
+    fclose(arch);
+    fclose(arch1);
 }
