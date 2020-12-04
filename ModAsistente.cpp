@@ -96,7 +96,7 @@ void menuPrincipal(){
 			case 2: system("cls");registrarTurno();
 				break;
 			case 3: system("cls"); listadoAtenciones();
-			case 4: band=false;
+			case 4: system("exit");
 				break;
 		}
 	}while(band);
@@ -242,7 +242,6 @@ bool login(){
 void registrarMascota(){
 	mascota animal;
 	FILE *arch = fopen("Mascotas.dat", "a+b");
-	fseek(arch,sizeof(mascota),SEEK_END);
 
 	printf("\n\t\tIngrese apellido y nombre: ");
 	fflush(stdin);
@@ -268,7 +267,7 @@ void registrarMascota(){
     scanf("%d", &animal.fechaDeNac.anio);
 
 	fwrite(&animal, sizeof(mascota), 1, arch);
-	printf("\n\t\tMAscota registrada exitosamente...");
+	printf("\n\t\tMascota registrada exitosamente...");
 	system("pause");
 	fclose(arch);
 }

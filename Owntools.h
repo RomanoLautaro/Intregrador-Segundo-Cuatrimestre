@@ -164,109 +164,145 @@ void marcoGenerico(int x1, int x2, int y1, int y2){
 void barraPorcentaje(float Porcen, int x, int y){
 	int porcent;
 	
-	porcent=Porcen;
+	porcent=int(Porcen);
 	textcolor(WHITE);
-	gotoxy(x,y); printf("%c", 222);
-	gotoxy(x+101,y); printf("%c", 221);
-	textbackground(LIGHTRED);
-	gotoxy(x+(porcent/2),y); printf("%.2f", Porcen);
-	textbackground(BLACK);
+	gotoxy(x,y); printf("%c", 178);
+	gotoxy(x+101,y); printf("%c", 178);
+	
+	
 	textcolor(LIGHTRED);
+	textbackground(LIGHTRED);
 	for(int i=0; i<porcent+1; i++){
 		gotoxy(x+i+1,y); printf("%c", 219);
 	}
 	textcolor(WHITE);
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-}
-
-// void password(int x, int y, char contrasenia[]){
-// 	int i=0;
-// 	char pass[32], caracter;
 	
-// 	gotoxy(x,y);
-// 	caracter=getch();
-// 	while(caracter!=ENTER){
-// 		if (caracter==8)
-// 		{
-// 			if (i>0)
-// 			{
-// 				i--;
-// 				printf("\b \b");
-				
-// 			}
-			
-// 		}else if(i!=32)
-// 		{
-// 			printf("*");
-// 			pass[i]=caracter;
-// 			i++;
-// 		}
-// 		caracter=getch();	
-// 	}
-// 	pass[i]='\0';
-// 	strcpy(contrasenia,pass);
+	gotoxy(x+(porcent/2),y); printf("%.2f%%", Porcen);
+	textbackground(BLACK);
 
+}
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
 // }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// }
+
+// // void password(int x, int y, char contrasenia[]){
+// // 	int i=0;
+// // 	char pass[32], caracter;
+	
+// // 	gotoxy(x,y);
+// // 	caracter=getch();
+// // 	while(caracter!=ENTER){
+// // 		if (caracter==8)
+// // 		{
+// // 			if (i>0)
+// // 			{
+// // 				i--;
+// // 				printf("\b \b");
+				
+// // 			}
+			
+// // 		}else if(i!=32)
+// // 		{
+// // 			printf("*");
+// // 			pass[i]=caracter;
+// // 			i++;
+// // 		}
+// // 		caracter=getch();	
+// // 	}
+// // 	pass[i]='\0';
+// // 	strcpy(contrasenia,pass);
+
+// // }

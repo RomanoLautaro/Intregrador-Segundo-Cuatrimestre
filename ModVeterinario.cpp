@@ -296,7 +296,6 @@ void listaDeEspera(){
 								printf("\n\t\tDni del duenio: %d",masc.dniDuenio);
 								printf("\n\t\tTelefono: %s",masc.telefono);
 								band=true;
-					
 							}
 							fread(&masc,sizeof(mascota),1,arch2);
 						}
@@ -309,18 +308,18 @@ void listaDeEspera(){
 				printf("\n\t\tNo hay turnos registrados...");
 				system("pause");
 			}
-	}
 	fclose(arch);
 	fclose(arch2);
 }
 
 void registrarEvolucion(){
 	turnos tur;
+	fecha fechaturno;
 	int dniduenio;
 	bool band=false;
-	char  opc;
+	char  opc='n';
 	
-	FILE *arch = fopen("Turnos.dat", "a+b");
+	FILE *arch = fopen("Turnos.dat", "r+b");
 	if(arch==NULL){
 		printf("\n\t\tNo hay turnos diaponibles para registrar evolucion...");
 		system("pause");
@@ -328,17 +327,29 @@ void registrarEvolucion(){
 		do{
 			printf("\n\t\tIngrese dni del duenio de la mascota: ");
 			scanf("%d",&dniduenio);
+			printf("\n\t\tIngrese la fecha del turno: ");
+			printf("\n\t\tDia: ");
+			scanf("%d", &fechaturno.dia);
+			printf("\t\tMes: ");
+			scanf("%d", &fechaturno.mes);
+			printf("\t\tAnio: ");
+			scanf("%d", &fechaturno.anio );
+
 			rewind(arch);
 			fread(&tur,sizeof(turnos),1,arch);
 			while(!feof(arch)&&band==false) {
 				if(tur.dni_duenio==dniduenio){
-					band=true;
-					printf("\n\t\tEvolucion de la mascota: ");
-					fflush(stdin);
-					gets(tur.detalles);
-					tur.atendido = true;
-					fseek(arch, sizeof(turnos), SEEK_CUR);
-					fwrite(&tur,sizeof(turnos),1,arch);
+					if(tur.fec.dia==fechaturno.dia &&  tur.fec.mes==fechaturno.mes && tur.fec.anio==fechaturno.anio)
+					{
+						band=true;
+						printf("\n\t\tEvolucion de la mascota: ");
+						fflush(stdin);
+						gets(tur.detalles);
+						tur.atendido = true;
+						fseek(arch,-sizeof(turnos), SEEK_CUR);
+						fwrite(&tur,sizeof(turnos),1,arch);
+						break;
+					}
 				}
 				fread(&tur, sizeof(turnos), 1, arch);
 			}

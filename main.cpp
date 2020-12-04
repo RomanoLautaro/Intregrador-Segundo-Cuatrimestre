@@ -30,8 +30,8 @@ struct turnos{
     bool atendido;
 };
 
-bool registroUser(usuario user);
-bool registroVet(usuario vet);
+void registroUser(usuario user);
+void registroVet(usuario vet);
 bool verificarPassword(usuario pass);
 bool verifUser(usuario user);
 void atencionesVeterinarios();
@@ -73,7 +73,7 @@ void menu_principal(usuario user){
 	system("pause>nul");
 }
 
-bool registroUser(usuario user){
+void registroUser(usuario user){
     FILE *arch=fopen("Usuarios.dat", "a+b");
     usuario aux;
     bool band=false, vBool;
@@ -135,7 +135,7 @@ bool registroUser(usuario user){
     fclose(arch);
 }
 
-bool registroVet(usuario user){
+void registroVet(usuario user){
 	veterinario vet, aux;
     bool band=false,bandnom=false;        
 
@@ -339,32 +339,43 @@ void rankingDeVeterinarios(){
 	FILE *arch = fopen("Turnos.dat", "r+b");
 	FILE *arch1 = fopen("Veterinarios.dat", "r+b");
     turnos turno;
-	veterinario vet;s
-    fread(&turno,sizeof(turnos),1,arch);
-	while(!feof(arch)){
-		if(turno.atendido==true) c++;
-		fread(&turno,sizeof(turnos),1,arch);
-    }
-    rewind(arch);
-	fread(&vet,sizeof(vet),1,arch1);
-	while(!feof(arch1)){
-        cont=0;
-		rewind(arch);
-	    fread(&turno,sizeof(turnos),1,arch);
-	    while(!feof(arch)){
-            if(vet.matricula == turno.matriculaVet && turno.atendido==true){
-				cont++;
-			}
-			fread(&turno,sizeof(turnos),1,arch);
+	veterinario vet;
+    if (arch!=NULL and arch1!=NULL)
+    {
+        fread(&turno,sizeof(turnos),1,arch);
+        while(!feof(arch)){
+            if(turno.atendido==true) c++;
+            fread(&turno,sizeof(turnos),1,arch);
         }
-        porcen=(float)cont*100/c;
-        gotoxy(10,4+contLineas);printf("\n\t======================================================");
-		gotoxy(10,5+contLineas);printf("\n\t\tNombre Veterinario: %s", vet.apeNom);
-		gotoxy(10,6+contLineas);printf("\n\t\tCantidad de turnos: %d", cont);
-        barraPorcentaje(porcen,10,7+contLineas);
-        contLineas+=4;
-		fread(&vet, sizeof(veterinario), 1, arch1);
-	}
-    fclose(arch);
-    fclose(arch1);
+        rewind(arch);
+        fread(&vet,sizeof(vet),1,arch1);
+        while(!feof(arch1)){
+            cont=0;
+            rewind(arch);
+            fread(&turno,sizeof(turnos),1,arch);
+            while(!feof(arch)){
+                if(vet.matricula == turno.matriculaVet && turno.atendido==true){
+                    cont++;
+                }
+                fread(&turno,sizeof(turnos),1,arch);
+            }
+            porcen=(float)cont*100/c;
+            gotoxy(10,4+contLineas);printf("\n\t======================================================");
+            gotoxy(10,5+contLineas);printf("\n\t\tNombre Veterinario: %s", vet.apeNom);
+            gotoxy(10,6+contLineas);printf("\n\t\tCantidad de turnos: %d", cont);
+            barraPorcentaje(porcen,10,8+contLineas);
+            contLineas+=5;
+            fread(&vet, sizeof(veterinario), 1, arch1);
+        }
+        system("pause>nul");
+
+        fclose(arch);
+        fclose(arch1);
+    }else
+    {
+        printf("\n\n\n\t\tNO SE HAN AGREGADO TURNOS...");
+        system("pause>nul");
+    }
+    
+    
 }
