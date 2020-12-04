@@ -157,9 +157,11 @@ bool login(){
             textcolor(WHITE);
             gotoxy(50-10, 15);printf("USUARIO: ");
             gotoxy(50-13, 17);printf("CONTRASE%cA: ", 165);
-            _flushall();
-            gotoxy(58-10, 15); textbackground(WHITE); printf("                                 ");
-            gotoxy(61-13, 17); textbackground(WHITE); printf("                                 ");
+			fflush(stdin);
+			gotoxy(58 - 10, 15);
+			textbackground(WHITE);
+			printf("                                 ");
+			gotoxy(61-13, 17); textbackground(WHITE); printf("                                 ");
             textcolor(BLACK);
             gotoxy(58-10, 15); gets(user.usuario);
             password(61-13, 17 , user.contrasenia);
@@ -246,7 +248,7 @@ void registrarMascota(){
 	printf("\n\t\tIngrese apellido y nombre: ");
 	fflush(stdin);
 	gets(animal.apeNom );
-    printf("\n\t\tIngrese DNI: ");
+    printf("\n\t\tIngrese DNI del duenio: ");
 	scanf("%d",&animal.dniDuenio);
     printf("\n\t\tIngrese localidad: ");
 	fflush(stdin);
@@ -297,7 +299,6 @@ void registrarTurno(){
 }
 
 void listadoAtenciones(){
-	int c = 1;
 	FILE *arch = fopen("Turnos.dat", "r+b");
 	FILE *arch1 = fopen("Veterinarios.dat", "r+b");
     if(arch==NULL){
@@ -305,36 +306,41 @@ void listadoAtenciones(){
     }
     turnos turno;
 	veterinario vet;
-    
-    rewind(arch);
+	fecha fecTurno;
+
+	printf("\n\nIngrese una fecha:\n\t\t\tDia: ");
+	scanf("%d", &fecTurno.dia);
+	printf("\t\t\tMes: ");
+	scanf("%d", &fecTurno.mes);
+    printf("\t\t\tAnio: ");
+	scanf("%d", &fecTurno.anio);
+	system("cls");
+
+	rewind(arch);
 	fread(&vet,sizeof(vet),1,arch1);
 	while(!feof(arch1)){
 		printf("\n\n\tVeterinario %s \n\t==================================", vet.apeNom);
-
 		rewind(arch);
 	    fread(&turno,sizeof(turnos),1,arch);
 	    while(!feof(arch)){
-            if(vet.matricula == turno.matriculaVet && turno.atendido==true){
-				printf("\n\t\tAtencion Nro: %d", c);
+            if(vet.matricula == turno.matriculaVet && turno.atendido==true && turno.fec.dia == fecTurno.dia && turno.fec.mes == fecTurno.mes && turno.fec.anio == fecTurno.anio){
+				printf("\n\t\t---------------------------------");
 				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
-                printf("\n\t\tFecha:");
-                printf("\n\t\t\tDia: %d", turno.fec.dia);
-                printf("\n\t\t\tMes: %d", turno.fec.mes);
-                printf("\n\t\t\tAnio: %d", turno.fec.anio);
+                printf("\n\t\tFecha: %d/%d/%d", turno.fec.dia, turno.fec.mes, turno.fec.anio);
                 printf("\n\t\tDetalle de la atencion: ");
                 for(int i=0; i<strlen(turno.detalles) ; i++){
                     cout<<turno.detalles[i];
                     if(i>80 or i>160 or i>240 or i>320){
-                        cout<<"\n";
+                        cout<<"\n\t\t";
                     }
                 }
 			}
-			c++;
 			fread(&turno,sizeof(turnos),1,arch);
-        }    
-
-        fread(&vet,sizeof(veterinario),1,arch1);
-    }
+        }
+		system("pause>nul");
+		system("cls");
+		fread(&vet, sizeof(veterinario), 1, arch1);
+	}
     system("pause<nul");
     fclose(arch);
     fclose(arch1);

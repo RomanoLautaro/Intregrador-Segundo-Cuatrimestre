@@ -289,7 +289,7 @@ void listaDeEspera(){
 						while(!feof(arch2) && band==false){
 							if(dniduenio==masc.dniDuenio){
 								printf("\n\n\t\tNombre y apellido: %s",masc.apeNom);
-								printf("\n\t\tPeso: %.2f",masc.peso);
+								printf("\n\t\tPeso: %.2f Kg",masc.peso);
 								printf("\n\t\tFecha de nacimiento: %d-%d-%d",masc.fechaDeNac.dia,masc.fechaDeNac.mes,masc.fechaDeNac.anio);
 								printf("\n\t\tLocalidad: %s",masc.localidad);
 								printf("\n\t\tDomicilio: %s",masc.domicilio);
@@ -301,12 +301,13 @@ void listaDeEspera(){
 						}
 						if(band==false){
 							printf("\n\t\tNo se registro ninguna mascota con dicho dni...");
+							system("pause>nul");
 						}
 					}
 				}while(opc == 's' || opc == 'S');
 			}else{
 				printf("\n\t\tNo hay turnos registrados...");
-				system("pause");
+				system("pause>nul");
 			}
 	fclose(arch);
 	fclose(arch2);
@@ -357,6 +358,7 @@ void registrarEvolucion(){
 				printf("La mascota no pudo ser encontrada, desea intentar nuevamente? [s/n]: ");
 				fflush(stdin);
 				scanf("%c",&opc);
+				system("cls");
 			}
 			else{
 				printf("\n\t\tEvolucion registrada con exito...");

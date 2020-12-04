@@ -288,7 +288,6 @@ bool verificarPassword(usuario pass){
 }
 
 void atencionesVeterinarios(){
-	int c = 1;
 	FILE *arch = fopen("Turnos.dat", "r+b");
 	FILE *arch1 = fopen("Veterinarios.dat", "r+b");
     if(arch==NULL){
@@ -306,7 +305,7 @@ void atencionesVeterinarios(){
 	    fread(&turno,sizeof(turnos),1,arch);
 	    while(!feof(arch)){
             if(vet.matricula == turno.matriculaVet && turno.atendido==true){
-				printf("\n\t\tAtencion Nro: %d", c);
+				printf("\n\t\t---------------------------------------");
 				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
                 printf("\n\t\tFecha:");
                 printf("\n\t\t\tDia: %d", turno.fec.dia);
@@ -320,11 +319,11 @@ void atencionesVeterinarios(){
                     }
                 }
 			}
-			c++;
 			fread(&turno,sizeof(turnos),1,arch);
-        }    
-
-        fread(&vet,sizeof(veterinario),1,arch1);
+        }
+		system("pause>nul");
+		system("cls");
+		fread(&vet,sizeof(veterinario),1,arch1);
     }
     fclose(arch);
     fclose(arch1);
