@@ -202,7 +202,7 @@ bool login(){
                         gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
                         textcolor(BLACK);
                         textbackground(WHITE);
-                        gotoxy(26-7, 21+7); printf(" La contraseÃ±a no coincide con el usuario. ");
+                        gotoxy(26-7, 21+7); printf(" La contrasenia no coincide con el usuario. ");
                         textbackground(BLACK);
                         system("pause>nul");
                         system("cls");	
@@ -338,7 +338,7 @@ void listadoAtenciones(){
 				printf("\n\t\t---------------------------------");
 				printf("\n\t\tNombre de la Mascota: %s", nombreMascota);
 				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
-                printf("\n\t\tFecha: %d/%d/%d", turno.fec.dia, turno.fec.mes, turno.fec.anio);
+                printf("\n\t\tFecha: %d%c%d%c%d", turno.fec.dia,219, turno.fec.mes,219, turno.fec.anio);
                 printf("\n\t\tDetalle de la atencion: ");
                 for(int i=0; i<strlen(turno.detalles) ; i++){
                     cout<<turno.detalles[i];
