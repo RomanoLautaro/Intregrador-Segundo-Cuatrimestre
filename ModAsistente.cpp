@@ -31,7 +31,7 @@ struct turnos{
 struct mascota{
 	char apeNom[60];
 	char domicilio[60];
-	int dniDuenio[10];
+	int dniDuenio;
 	char localidad[60];
 	fecha fechaDeNac;
 	float peso;
@@ -245,7 +245,7 @@ void registrarMascota(){
 	mascota animal;
 	FILE *arch = fopen("Mascotas.dat", "a+b");
 
-	printf("\n\t\tIngrese apellido y nombre: ");
+	printf("\n\t\tIngrese Nombre de la Mascota: ");
 	fflush(stdin);
 	gets(animal.apeNom );
     printf("\n\t\tIngrese DNI del duenio: ");
@@ -260,7 +260,7 @@ void registrarMascota(){
 	scanf("%f", &animal.peso);
     printf("\n\t\tIngrese telefono: ");
 	scanf("%d", &animal.telefono);
-    printf("\n\t\tFecha:");
+    printf("\n\t\tFecha nacimiento:");
     printf("\n\t\t\tDia: ");
     scanf("%d", &animal.fechaDeNac.dia);
     printf("\n\t\t\tMes: ");
@@ -270,7 +270,7 @@ void registrarMascota(){
 
 	fwrite(&animal, sizeof(mascota), 1, arch);
 	printf("\n\t\tMascota registrada exitosamente...");
-	system("pause");
+	system("pause>nul");
 	fclose(arch);
 }
 
@@ -301,12 +301,15 @@ void registrarTurno(){
 void listadoAtenciones(){
 	FILE *arch = fopen("Turnos.dat", "r+b");
 	FILE *arch1 = fopen("Veterinarios.dat", "r+b");
-    if(arch==NULL){
+    FILE *arch2 = fopen("Mascotas.dat", "r+b");
+	if(arch==NULL){
         printf("\n\n\t\tNO SE ASIGNO NINGUN TURNO...");
     }
     turnos turno;
 	veterinario vet;
 	fecha fecTurno;
+	mascota masc;
+	char nombreMascota[50];
 
 	printf("\n\nIngrese una fecha:\n\t\t\tDia: ");
 	scanf("%d", &fecTurno.dia);
@@ -323,8 +326,16 @@ void listadoAtenciones(){
 		rewind(arch);
 	    fread(&turno,sizeof(turnos),1,arch);
 	    while(!feof(arch)){
+	    	rewind(arch2);
+	    	fread(&masc,sizeof(mascota),1,arch2);
             if(vet.matricula == turno.matriculaVet && turno.atendido==true && turno.fec.dia == fecTurno.dia && turno.fec.mes == fecTurno.mes && turno.fec.anio == fecTurno.anio){
+				while(!feof(arch2)){
+					if(turno.dni_duenio == masc.dniDuenio) strcpy(nombreMascota , masc.apeNom);
+					break;
+					fread(&masc,sizeof(mascota),1,arch2);
+				}
 				printf("\n\t\t---------------------------------");
+				printf("\n\t\tNombre de la Mascota: %s", nombreMascota);
 				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
                 printf("\n\t\tFecha: %d/%d/%d", turno.fec.dia, turno.fec.mes, turno.fec.anio);
                 printf("\n\t\tDetalle de la atencion: ");
@@ -344,4 +355,5 @@ void listadoAtenciones(){
     system("pause<nul");
     fclose(arch);
     fclose(arch1);
+    fclose(arch2);
 }
