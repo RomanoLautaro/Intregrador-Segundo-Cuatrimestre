@@ -161,7 +161,7 @@ void marcoGenerico(int x1, int x2, int y1, int y2){
 	}
 }
 
-void barraPorcentaje(float Porcen, int x, int y){
+/*void barraPorcentaje(float Porcen, int x, int y){
 	int porcent;
 	
 	porcent=int(Porcen);
@@ -180,7 +180,7 @@ void barraPorcentaje(float Porcen, int x, int y){
 	gotoxy(x+(porcent/2),y); printf("%.2f%%", Porcen);
 	textbackground(BLACK);
 	printf("\n");
-}
+}*/
 
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
