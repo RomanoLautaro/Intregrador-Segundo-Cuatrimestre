@@ -366,7 +366,40 @@ void registrarEvolucion(){
 			printf("\n\t\tIngrese Apellido y nombre de la mascota: ");
 			fflush(stdin);
 			gets(nombreMascota);
-			
+			fread(&masc,sizeof(mascota),1,arch2);
+			while(!feof(arch2)){
+				if(strcmp(nombreMascota,masc.apeNom)==0){
+					dniduenio=masc.dniDuenio;
+				}
+				fread(&masc,sizeof(mascota),1,arch1);	
+			}
+
+			rewind(arch);
+			fread(&tur,sizeof(turnos),1,arch);
+			while(!feof(arch)&&band==false) {
+				if(tur.dni_duenio==dniduenio)
+					{
+						band=true;
+						printf("\n\t\tEvolucion de la mascota: ");
+						fflush(stdin);
+						gets(tur.detalles);
+						tur.atendido = true;
+						fseek(arch,-sizeof(turnos), SEEK_CUR);
+						fwrite(&tur,sizeof(turnos),1,arch);
+						break;
+					}
+				}
+				fread(&tur, sizeof(turnos), 1, arch);
+			}
+			if(band==false){
+				printf("La mascota no pudo ser encontrada, desea intentar nuevamente? [s/n]: ");
+				fflush(stdin);
+				scanf("%c",&opc);
+				system("cls");
+			}
+			else{
+				printf("\n\t\tEvolucion registrada con exito...");
+			}
 		
 		}while(opc=='s' || opc=='S');
 	}
