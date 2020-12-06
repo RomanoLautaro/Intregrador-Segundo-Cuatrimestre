@@ -63,14 +63,12 @@ int main(int argc, char const *argv[])
 }
 
 void menuPrincipal(){
-	
 	bool band=true;
 	int Op;
 	const char *titulo= "Modulo de Veterinarios";
 	const char *opciones[]={"Visualizar Lista de Espera", "Registrar Evolucion de Mascota", "Salir"};
 	
 	do{
-		
 		system("cls");
 		textcolor(WHITE);
 		for(int i=35; i<88+1; i++){
@@ -99,7 +97,6 @@ void menuPrincipal(){
 	system("pause>nul");
 }
 
-
 void password(int x, int y, char contrasenia[]){
 	int i=0;
 	char pass[32], caracter;
@@ -113,9 +110,7 @@ void password(int x, int y, char contrasenia[]){
 			{
 				i--;
 				printf("\b \b");
-				
 			}
-			
 		}else if(i!=32)
 		{
 			printf("*");
@@ -126,12 +121,7 @@ void password(int x, int y, char contrasenia[]){
 	}
 	pass[i]='\0';
 	strcpy(contrasenia,pass);
-
 }
-
-
-bool login(){
-    FILE *arch=fopen("Usuarios.dat", "r+b");
 	FILE *arch1=fopen("Veterinarios.dat", "r+b");
     usuario user;
     bool band=false;
@@ -190,6 +180,7 @@ bool login(){
                     if(strcmp(user.contrasenia,admin.contrasenia)==0){
                             band=true;
                             system("cls");
+							return true;
 					}else{
                         textcolor(WHITE);
                         textbackground(LIGHTRED);
@@ -272,13 +263,12 @@ void listaDeEspera(){
 					    	fread(&masc,sizeof(mascota),1,arch2);
 							while(!feof(arch2)){
 								if(tur.dni_duenio == masc.dniDuenio){
-									strcpy(nombreMascota , masc.apeNom);
 									break;
 								}
 								fread(&masc,sizeof(mascota),1,arch2);
 							}
 							printf("\n\t\t==============================================\n");
-							printf("\t\tNombre de la mascota: %s\n",nombreMascota);
+							printf("\t\tNombre de la mascota: %s\n",masc.apeNom);
 							printf("\t\tDNI del duenio: %d\n", tur.dni_duenio);
 							printf("\t\tFecha en la que se otorgo el turno: %d%c%d%c%d\n", tur.fec.dia,219, tur.fec.mes,219, tur.fec.anio);
 							turnoparavet = true;
@@ -341,6 +331,7 @@ void registrarEvolucion(){
 		system("pause");
 	}else{
 		do{
+			system("cls");
 			printf("\n\t\t\tLista de turnos\n\t\t==============================================\n");
 			rewind(arch);
 			fread(&tur, sizeof(tur), 1, arch);
@@ -367,47 +358,15 @@ void registrarEvolucion(){
 						}
 					}
 					fread(&tur, sizeof(tur), 1, arch);
+				printf("\n\t\t==============================================\n");
 			}
 			
 			
 			printf("\n\t\tRegistrar evolucion\n\t\t========================\n");
-			printf("\n\t\tIngrese dni del duenio de la mascota: ");
-			scanf("%d",&dniduenio);
-			printf("\n\t\tIngrese la fecha del turno: ");
-			printf("\n\t\tDia: ");
-			scanf("%d", &fechaturno.dia);
-			printf("\t\tMes: ");
-			scanf("%d", &fechaturno.mes);
-			printf("\t\tAnio: ");
-			scanf("%d", &fechaturno.anio );
-
-			rewind(arch);
-			fread(&tur,sizeof(turnos),1,arch);
-			while(!feof(arch)&&band==false) {
-				if(tur.dni_duenio==dniduenio){
-					if(tur.fec.dia==fechaturno.dia &&  tur.fec.mes==fechaturno.mes && tur.fec.anio==fechaturno.anio)
-					{
-						band=true;
-						printf("\n\t\tEvolucion de la mascota: ");
-						fflush(stdin);
-						gets(tur.detalles);
-						tur.atendido = true;
-						fseek(arch,-sizeof(turnos), SEEK_CUR);
-						fwrite(&tur,sizeof(turnos),1,arch);
-						break;
-					}
-				}
-				fread(&tur, sizeof(turnos), 1, arch);
-			}
-			if(band==false){
-				printf("La mascota no pudo ser encontrada, desea intentar nuevamente? [s/n]: ");
-				fflush(stdin);
-				scanf("%c",&opc);
-				system("cls");
-			}
-			else{
-				printf("\n\t\tEvolucion registrada con exito...");
-			}
+			printf("\n\t\tIngrese Apellido y nombre de la mascota: ");
+			fflush(stdin);
+			gets(nombreMascota);
+			
 		
 		}while(opc=='s' || opc=='S');
 	}

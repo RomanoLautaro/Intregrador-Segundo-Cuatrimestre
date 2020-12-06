@@ -17,10 +17,9 @@ void ocultarCursor();
 void gotoxy(int x, int y);
 void textcolor(int newcolor);
 void textbackground(int newcolor);
-void marco();
 void marcoGenerico(int x1, int x2, int y1, int y2);
 void password(int x, int y, char contrasenia[]);
-void barraPorcentaje(float Porcen, int x, int y);
+
 //FUNCIONES
 
 void ocultarCursor(){

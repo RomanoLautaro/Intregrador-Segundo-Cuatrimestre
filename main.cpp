@@ -9,6 +9,15 @@ struct usuario{
     char tipoUsuario;
 	int dni;
 };
+struct mascota{
+	char apeNom[60];
+	char domicilio[60];
+	int dniDuenio;
+	char localidad[60];
+	fecha fechaDeNac;
+	float peso;
+	char telefono[25];
+};
 struct veterinario{
 	char apeNom[60];
     int matricula;
@@ -297,15 +306,43 @@ bool verificarPassword(usuario pass){
 void atencionesVeterinarios(){
 	FILE *arch = fopen("Turnos.dat", "r+b");
 	FILE *arch1 = fopen("Veterinarios.dat", "r+b");
+    FILE *arch2 = fopen("Mascotas.dat", "r+b");
     if(arch==NULL){
         printf("\n\n\t\tNO SE ASIGNO NINGUN TURNO...");
     }
     turnos turno;
 	veterinario vet;
-    
+    mascota masc;
+	char nombreMascota[50];
+
     rewind(arch);
 	fread(&vet,sizeof(vet),1,arch1);
 	while(!feof(arch1)){
+        rewind(arch2);
+	    fread(&masc,sizeof(mascota),1,arch2);
+        while(!feof(arch2)){
+		    if(turno.dni_duenio == masc.dniDuenio){
+			    break;
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+                //masc.apeNom
+            }
+			fread(&masc,sizeof(mascota),1,arch2);
+		}
+
+
 		printf("\n\n\tVeterinario %s \n\t==================================", vet.apeNom);
 
 		rewind(arch);
@@ -314,10 +351,7 @@ void atencionesVeterinarios(){
             if(vet.matricula == turno.matriculaVet && turno.atendido==true){
 				printf("\n\t\t---------------------------------------");
 				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
-                printf("\n\t\tFecha:");
-                printf("\n\t\t\tDia: %d", turno.fec.dia);
-                printf("\n\t\t\tMes: %d", turno.fec.mes);
-                printf("\n\t\t\tAnio: %d", turno.fec.anio);
+                printf("\t\tFecha en la que se otorgo el turno: %d%c%d%c%d\n", turno.fec.dia,219, turno.fec.mes,219, turno.fec.anio);
                 printf("\n\t\tDetalle de la atencion: ");
                 for(int i=0; i<strlen(turno.detalles) ; i++){
                     cout<<turno.detalles[i];

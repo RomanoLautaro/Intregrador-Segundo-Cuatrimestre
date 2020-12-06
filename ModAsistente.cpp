@@ -196,6 +196,7 @@ bool login(){
                     if(strcmp(user.contrasenia,admin.contrasenia)==0){
                             band=true;
                             system("cls");
+                            return true;
 					}else{
                         textcolor(WHITE);
                         textbackground(LIGHTRED);
@@ -331,12 +332,13 @@ void listadoAtenciones(){
 	    	fread(&masc,sizeof(mascota),1,arch2);
             if(vet.matricula == turno.matriculaVet && turno.atendido==true && turno.fec.dia == fecTurno.dia && turno.fec.mes == fecTurno.mes && turno.fec.anio == fecTurno.anio){
 				while(!feof(arch2)){
-					if(turno.dni_duenio == masc.dniDuenio) strcpy(nombreMascota , masc.apeNom);
-					break;
-					fread(&masc,sizeof(mascota),1,arch2);
+					if(turno.dni_duenio == masc.dniDuenio){
+						break;
+					}
+                    fread(&masc,sizeof(mascota),1,arch2);
 				}
 				printf("\n\t\t---------------------------------");
-				printf("\n\t\tNombre de la Mascota: %s", nombreMascota);
+				printf("\n\t\tNombre de la Mascota: %s", masc.apeNom);
 				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
                 printf("\n\t\tFecha: %d%c%d%c%d", turno.fec.dia,219, turno.fec.mes,219, turno.fec.anio);
                 printf("\n\t\tDetalle de la atencion: ");
