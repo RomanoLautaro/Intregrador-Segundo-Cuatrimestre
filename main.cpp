@@ -43,6 +43,7 @@ bool verifUser(usuario user);
 void atencionesVeterinarios();
 void rankingDeVeterinarios();
 void menu_principal(usuario user);    
+void barraPorcentaje(float Porcen, int x, int y);
  
 int main(int argc, char const *argv[])
 {
@@ -425,6 +426,25 @@ void rankingDeVeterinarios(){
         printf("\n\n\n\t\tNO SE HAN AGREGADO TURNOS...");
         system("pause>nul");
     }
-    
-    
+}
+
+void barraPorcentaje(float Porcen, int x, int y){
+	int porcent;
+	
+	porcent=int(Porcen);
+	textcolor(WHITE);
+	gotoxy(x,y); printf("%c", 178);
+	gotoxy(x+101,y); printf("%c", 178);
+	
+	
+	textcolor(LIGHTRED);
+	textbackground(LIGHTRED);
+	for(int i=0; i<porcent+1; i++){
+		gotoxy(x+i+1,y); printf("%c", 219);
+	}
+	textcolor(WHITE);
+	
+	gotoxy(x+(porcent/2),y); printf("%.2f%%", Porcen);
+	textbackground(BLACK);
+	printf("\n");
 }
