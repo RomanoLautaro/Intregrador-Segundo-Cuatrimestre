@@ -271,8 +271,10 @@ void listaDeEspera(){
 					    	rewind(arch2);
 					    	fread(&masc,sizeof(mascota),1,arch2);
 							while(!feof(arch2)){
-								if(tur.dni_duenio == masc.dniDuenio) strcpy(nombreMascota , masc.apeNom);
-								break;
+								if(tur.dni_duenio == masc.dniDuenio){
+									strcpy(nombreMascota , masc.apeNom);
+									break;
+								}
 								fread(&masc,sizeof(mascota),1,arch2);
 							}
 							printf("\n\t\t==============================================\n");
@@ -304,7 +306,7 @@ void listaDeEspera(){
 								printf("\n\t\tLocalidad: %s",masc.localidad);
 								printf("\n\t\tDomicilio: %s",masc.domicilio);
 								printf("\n\t\tDni del duenio: %d",masc.dniDuenio);
-								printf("\n\t\tTelefono: %s",masc.telefono);
+								printf("\n\t\tTelefono: %d",masc.telefono);
 								band=true;
 							}
 							fread(&masc,sizeof(mascota),1,arch2);
