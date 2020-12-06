@@ -328,16 +328,49 @@ void listaDeEspera(){
 void registrarEvolucion(){
 	turnos tur;
 	fecha fechaturno;
+	mascota masc;
 	int dniduenio;
-	bool band=false;
+	bool band=false, turnoparavet=false;
 	char  opc='n';
+	char nombreMascota[50];
 	
 	FILE *arch = fopen("Turnos.dat", "r+b");
+	FILE *arch2=fopen("Mascotas.dat","r+b");
 	if(arch==NULL){
-		printf("\n\t\tNo hay turnos diaponibles para registrar evolucion...");
+		printf("\n\t\tNo hay turnos disponibles para registrar evolucion...");
 		system("pause");
 	}else{
 		do{
+			printf("\n\t\t\tLista de turnos\n\t\t==============================================\n");
+			rewind(arch);
+			fread(&tur, sizeof(tur), 1, arch);
+			while (!feof(arch))
+			{
+					if (tur.matriculaVet == datos.matricula)
+					{
+						if (tur.atendido == false)
+						{
+					    	rewind(arch2);
+					    	fread(&masc,sizeof(mascota),1,arch2);
+							while(!feof(arch2)){
+								if(tur.dni_duenio == masc.dniDuenio){
+									strcpy(nombreMascota , masc.apeNom);
+									break;
+								}
+								fread(&masc,sizeof(mascota),1,arch2);
+							}
+							printf("\n\t\t==============================================\n");
+							printf("\t\tNombre de la mascota: %s\n",nombreMascota);
+							printf("\t\tDNI del duenio: %d\n", tur.dni_duenio);
+							printf("\t\tFecha en la que se otorgo el turno: %d-%d-%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
+							turnoparavet = true;
+						}
+					}
+					fread(&tur, sizeof(tur), 1, arch);
+			}
+			
+			
+			printf("\n\t\tRegistrar evolucion\n\t\t========================\n");
 			printf("\n\t\tIngrese dni del duenio de la mascota: ");
 			scanf("%d",&dniduenio);
 			printf("\n\t\tIngrese la fecha del turno: ");
