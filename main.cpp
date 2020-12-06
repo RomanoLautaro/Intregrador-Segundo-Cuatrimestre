@@ -30,6 +30,12 @@ struct turnos{
     bool atendido;
 };
 
+struct atenciones{
+	char apeNom[60];
+	int cantAten;
+	float porc;
+};
+
 void registroUser(usuario user);
 void registroVet(usuario vet);
 bool verificarPassword(usuario pass);
@@ -332,13 +338,14 @@ void atencionesVeterinarios(){
 void rankingDeVeterinarios(){
 	typedef char nombres[50];
 	nombres nombre[50];
-	int cont, turnTotal=0, contLineas=0;
+	int cont, turnTotal=0, contLineas=0, N=0;
 	int c = 0;
     float porcen;
 	FILE *arch = fopen("Turnos.dat", "r+b");
 	FILE *arch1 = fopen("Veterinarios.dat", "r+b");
     turnos turno;
 	veterinario vet;
+    atenciones atencion[50], aux;
     if (arch!=NULL and arch1!=NULL)
     {
         fread(&turno,sizeof(turnos),1,arch);
@@ -350,6 +357,7 @@ void rankingDeVeterinarios(){
         fread(&vet,sizeof(vet),1,arch1);
         while(!feof(arch1)){
             cont=0;
+            
             rewind(arch);
             fread(&turno,sizeof(turnos),1,arch);
             while(!feof(arch)){
@@ -359,13 +367,55 @@ void rankingDeVeterinarios(){
                 fread(&turno,sizeof(turnos),1,arch);
             }
             porcen=(float)cont*100/c;
-            gotoxy(10,4+contLineas);printf("\n\t======================================================");
-            gotoxy(10,5+contLineas);printf("\n\t\tNombre Veterinario: %s", vet.apeNom);
-            gotoxy(10,6+contLineas);printf("\n\t\tCantidad de turnos: %d", cont);
-            barraPorcentaje(porcen,10,8+contLineas);
-            contLineas+=5;
+            strcpy(atencion[N].apeNom, vet.apeNom);
+            atencion[N].cantAten=cont;
+            atencion[N].porc=porcen;
+            N++;
             fread(&vet, sizeof(veterinario), 1, arch1);
         }
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                if (atencion[i].cantAten>atencion[j].cantAten)
+                {
+                    
+                    strcpy(aux.apeNom, atencion[i].apeNom);
+                    aux.cantAten=atencion[i].cantAten;
+                    aux.porc=atencion[i].porc;
+                    strcpy(atencion[i].apeNom, atencion[j].apeNom);
+                    atencion[i].cantAten=atencion[j].cantAten;
+                    atencion[i].porc=atencion[j].porc;
+                    strcpy(atencion[j].apeNom, aux.apeNom);
+                    atencion[j].cantAten=aux.cantAten;
+                    atencion[j].porc=aux.porc;
+                }
+                
+            }
+            
+        }
+        textbackground(LIGHTRED);
+        textcolor(WHITE);
+        printf("\n\n\n\t\t\t\t\t%c           RANKING DE ATENCIONES           %c", 219,219);
+        textbackground(BLACK);
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 8; j < 114; j++)
+            {
+                gotoxy(j,6+contLineas+1);printf("%c", 220);
+
+            }
+            textcolor(LIGHTRED);
+            textbackground(WHITE);
+            gotoxy(56,6+contLineas+1);printf("  Puesto %d  ", i+1);
+            textcolor(WHITE);
+            textbackground(BLACK);
+            gotoxy(10,9+contLineas);printf("\t\tNombre Veterinario: %s", atencion[i].apeNom);
+            gotoxy(10,10+contLineas);printf("\t\tCantidad de turnos: %d", atencion[i].cantAten);
+            barraPorcentaje(atencion[i].porc,10,11+contLineas);
+            contLineas+=6;
+        }
+        
         system("pause>nul");
 
         fclose(arch);

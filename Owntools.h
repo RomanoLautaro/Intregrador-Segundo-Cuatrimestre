@@ -179,7 +179,7 @@ void barraPorcentaje(float Porcen, int x, int y){
 	
 	gotoxy(x+(porcent/2),y); printf("%.2f%%", Porcen);
 	textbackground(BLACK);
-
+	printf("\n");
 }
 
 // // void password(int x, int y, char contrasenia[]){
