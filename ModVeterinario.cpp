@@ -270,7 +270,7 @@ void listaDeEspera(){
 							printf("\n\t\t==============================================\n");
 							printf("\t\tNombre de la mascota: %s\n",masc.apeNom);
 							printf("\t\tDNI del duenio: %d\n", tur.dni_duenio);
-							printf("\t\tFecha en la que se otorgo el turno: %d%c%d%c%d\n", tur.fec.dia,219, tur.fec.mes,219, tur.fec.anio);
+							printf("\t\tFecha en la que se otorgo el turno: %d-%d-%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
 							turnoparavet = true;
 						}
 					}
@@ -292,7 +292,7 @@ void listaDeEspera(){
 							if(dniduenio==masc.dniDuenio){
 								printf("\n\n\t\tNombre de la mascota: %s",masc.apeNom);
 								printf("\n\t\tPeso: %.2f Kg",masc.peso);
-								printf("\n\t\tFecha de nacimiento: %d%c%d%c%d",masc.fechaDeNac.dia,219,masc.fechaDeNac.mes,219,masc.fechaDeNac.anio);
+								printf("\n\t\tFecha de nacimiento: %d-%d-%d",masc.fechaDeNac.dia,masc.fechaDeNac.mes,masc.fechaDeNac.anio);
 								printf("\n\t\tLocalidad: %s",masc.localidad);
 								printf("\n\t\tDomicilio: %s",masc.domicilio);
 								printf("\n\t\tDni del duenio: %d",masc.dniDuenio);
@@ -353,7 +353,7 @@ void registrarEvolucion(){
 							printf("\n\t\t==============================================\n");
 							printf("\t\tNombre de la mascota: %s\n",nombreMascota);
 							printf("\t\tDNI del duenio: %d\n", tur.dni_duenio);
-							printf("\t\tFecha en la que se otorgo el turno: %d%c%d%c%d\n", tur.fec.dia,219, tur.fec.mes,219, tur.fec.anio);
+							printf("\t\tFecha en la que se otorgo el turno: %d-%d-%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
 							turnoparavet = true;
 						}
 					}
