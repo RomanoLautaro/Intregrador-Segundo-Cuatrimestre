@@ -246,6 +246,7 @@ void listaDeEspera(){
 	int dniduenio;
 	bool band=false,turnoparavet=false;
 	char opc;
+	char nombreMascota[50];
 
 	FILE *arch=fopen("Turnos.dat","r+b");
 	FILE *arch2=fopen("Mascotas.dat","r+b");
@@ -258,7 +259,7 @@ void listaDeEspera(){
 		system("pause");
 	}
 	else{
-			printf("\n\t\tLista de espera\n\t==================================================\n");
+			printf("\n\t\t\tLista de espera\n\t\t==============================================\n");
 			rewind(arch);
 			fread(&tur, sizeof(tur), 1, arch);
 			while (!feof(arch))
@@ -267,7 +268,15 @@ void listaDeEspera(){
 					{
 						if (tur.atendido == false)
 						{
-							printf("\n=====================================================\n");
+					    	rewind(arch2);
+					    	fread(&masc,sizeof(mascota),1,arch2);
+							while(!feof(arch2)){
+								if(tur.dni_duenio == masc.dniDuenio) strcpy(nombreMascota , masc.apeNom);
+								break;
+								fread(&masc,sizeof(mascota),1,arch2);
+							}
+							printf("\n\t\t==============================================\n");
+							printf("\t\tNombre de la mascota: %s\n",nombreMascota);
 							printf("\t\tDNI del duenio: %d\n", tur.dni_duenio);
 							printf("\t\tFecha en la que se otorgo el turno: %d-%d-%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
 							turnoparavet = true;
@@ -284,11 +293,12 @@ void listaDeEspera(){
 					if(opc == 's' || opc == 'S'){
 						printf("\n\t\tIngrese dni del duenio de la mascota: ");
 						scanf("%d",&dniduenio);
+						band=false;
 						rewind(arch2);
 						fread(&masc,sizeof(mascota),1,arch2);
 						while(!feof(arch2) && band==false){
 							if(dniduenio==masc.dniDuenio){
-								printf("\n\n\t\tNombre y apellido: %s",masc.apeNom);
+								printf("\n\n\t\tNombre de la mascota: %s",masc.apeNom);
 								printf("\n\t\tPeso: %.2f Kg",masc.peso);
 								printf("\n\t\tFecha de nacimiento: %d-%d-%d",masc.fechaDeNac.dia,masc.fechaDeNac.mes,masc.fechaDeNac.anio);
 								printf("\n\t\tLocalidad: %s",masc.localidad);
