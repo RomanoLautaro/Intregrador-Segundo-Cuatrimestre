@@ -336,7 +336,7 @@ void atencionesVeterinarios(){
 				printf("\n\t\t---------------------------------------");
 				printf("\n\t\tNombre de la mascota: %s", nombreMascota);
 				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
-                printf("\\nt\tFecha en la que se otorgo el turno: %d%c%d%c%d\n", turno.fec.dia,219, turno.fec.mes,219, turno.fec.anio);
+                printf("\n\t\tFecha en la que se otorgo el turno: %d%c%d%c%d\n", turno.fec.dia,219, turno.fec.mes,219, turno.fec.anio);
                 printf("\n\t\tDetalle de la atencion: ");
                 for(int i=0; i<strlen(turno.detalles) ; i++){
                     cout<<turno.detalles[i];

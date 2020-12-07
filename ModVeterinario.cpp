@@ -1,5 +1,4 @@
 #include "Owntools.h"
-
 using namespace std;
 struct usuario{
     char apeNom[60];
