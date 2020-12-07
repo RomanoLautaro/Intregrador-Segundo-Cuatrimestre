@@ -2,6 +2,11 @@
 
 using namespace std;
 
+struct fecha{
+	int dia;
+	int mes;
+	int anio;
+};
 struct usuario{
     char apeNom[60];
 	char usuario[10];
@@ -23,12 +28,6 @@ struct veterinario{
     int matricula;
 	int dni;
 	char telefono[25];
-};
-
-struct fecha{
-	int dia;
-	int mes;
-	int anio;
 };
 
 struct turnos{
@@ -314,44 +313,30 @@ void atencionesVeterinarios(){
 	veterinario vet;
     mascota masc;
 	char nombreMascota[50];
-
     rewind(arch);
 	fread(&vet,sizeof(vet),1,arch1);
 	while(!feof(arch1)){
-        rewind(arch2);
-	    fread(&masc,sizeof(mascota),1,arch2);
-        while(!feof(arch2)){
-		    if(turno.dni_duenio == masc.dniDuenio){
-			    break;
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-                //masc.apeNom
-            }
-			fread(&masc,sizeof(mascota),1,arch2);
-		}
-
 
 		printf("\n\n\tVeterinario %s \n\t==================================", vet.apeNom);
 
 		rewind(arch);
 	    fread(&turno,sizeof(turnos),1,arch);
 	    while(!feof(arch)){
+	    	
+	    	rewind(arch2);
+	    	fread(&masc,sizeof(mascota),1,arch2);
+        	while(!feof(arch2)){
+		    	if(turno.dni_duenio == masc.dniDuenio){
+               		strcpy(nombreMascota,masc.apeNom);
+					break;
+           		}
+				fread(&masc,sizeof(mascota),1,arch2);
+			}
             if(vet.matricula == turno.matriculaVet && turno.atendido==true){
 				printf("\n\t\t---------------------------------------");
+				printf("\n\t\tNombre de la mascota: %s", nombreMascota);
 				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
-                printf("\t\tFecha en la que se otorgo el turno: %d%c%d%c%d\n", turno.fec.dia,219, turno.fec.mes,219, turno.fec.anio);
+                printf("\\nt\tFecha en la que se otorgo el turno: %d%c%d%c%d\n", turno.fec.dia,219, turno.fec.mes,219, turno.fec.anio);
                 printf("\n\t\tDetalle de la atencion: ");
                 for(int i=0; i<strlen(turno.detalles) ; i++){
                     cout<<turno.detalles[i];

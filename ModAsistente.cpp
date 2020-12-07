@@ -269,7 +269,7 @@ void registrarMascota(){
     printf("\n\t\t\tAnio: ");
     scanf("%d", &animal.fechaDeNac.anio);
 
-	fseek(arch,sizeof(mascota),SEEK_END);
+	//fseek(arch,sizeof(mascota),SEEK_END);
 	fwrite(&animal, sizeof(mascota), 1, arch);
 	printf("\n\t\tMascota registrada exitosamente...");
 	system("pause>nul");
