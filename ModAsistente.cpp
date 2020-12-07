@@ -344,7 +344,7 @@ void listadoAtenciones(){
                 printf("\n\t\tDetalle de la atencion: ");
                 for(int i=0; i<strlen(turno.detalles) ; i++){
                     cout<<turno.detalles[i];
-                    if(i>80 or i>160 or i>240 or i>320){
+                    if(i==80-24 or i==160-24 or i==240-24 or i==320-24){
                         cout<<"\n\t\t";
                     }
                 }
