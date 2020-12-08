@@ -87,7 +87,9 @@ void menuPrincipal(){
 				break;
 			case 2: system("cls");registrarEvolucion();
 				break;
-			case 3: band=false;
+			case 3: 
+				system("exit");
+				band=false;
 				break;
 		}
 	}while(band);

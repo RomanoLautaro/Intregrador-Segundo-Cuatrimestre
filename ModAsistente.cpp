@@ -43,7 +43,7 @@ void registrarMascota();
 void registrarTurno();
 void listadoAtenciones();
 void password(int x, int y, char contrasenia[]);
-void menuPrincipal();
+bool menuPrincipal();
 
 usuario admin;
 
@@ -60,14 +60,14 @@ int main(int argc, char const *argv[])
     } while (band==false);
     while (band==true)
     {
-        menuPrincipal();
+        band = menuPrincipal();
     }
     
     return 0;
 }
 //user=iGNa23
 //pass=aS15sO
-void menuPrincipal(){
+bool menuPrincipal(){
 	
 	bool band=true;
 	int Op;
@@ -96,13 +96,17 @@ void menuPrincipal(){
 			case 2: system("cls");registrarTurno();
 				break;
 			case 3: system("cls"); listadoAtenciones();
-			case 4: system("exit");
+				break;
+			case 4: 
+				band=false;
+				system("exit");
 				break;
 		}
 	}while(band);
 	system("cls");
 	gotoxy(40, 12); printf("Se cerro el modulo de administracion. Adios...\n\n\n\n");
 	system("pause>nul");
+	return false;
 }
 
 void password(int x, int y, char contrasenia[]){
