@@ -1,6 +1,7 @@
 #include "Owntools.h"
 
 using namespace std;
+
 struct usuario{
     char apeNom[60];
 	char usuario[10];
@@ -8,6 +9,7 @@ struct usuario{
     char tipoUsuario;
 	int dni;
 };
+
 struct veterinario{
 	char apeNom[60];
     int matricula;
@@ -43,13 +45,14 @@ void registrarMascota();
 void registrarTurno();
 void listadoAtenciones();
 void password(int x, int y, char contrasenia[]);
-bool menuPrincipal();
+void menuPrincipal(bool &b);
 
 usuario admin;
+const char *titulo[]={"REGISTRAR MASCOTA", "REGISTRAR TURNO"};
 
 int main(int argc, char const *argv[])
 {
-    bool band=false;
+    bool band=false, b=true;
     system("mode 120,35");
     do
     {
@@ -58,16 +61,16 @@ int main(int argc, char const *argv[])
             band = true;
         }
     } while (band==false);
-    while (band==true)
+    while (b)
     {
-        band = menuPrincipal();
+        menuPrincipal(b);
     }
     
     return 0;
 }
 //user=iGNa23
 //pass=aS15sO
-bool menuPrincipal(){
+void menuPrincipal(bool &b){
 	
 	bool band=true;
 	int Op;
@@ -96,17 +99,13 @@ bool menuPrincipal(){
 			case 2: system("cls");registrarTurno();
 				break;
 			case 3: system("cls"); listadoAtenciones();
-				break;
-			case 4: 
-				band=false;
-				system("exit");
+			case 4: band=false; b=false;//system("exit");
 				break;
 		}
 	}while(band);
 	system("cls");
 	gotoxy(40, 12); printf("Se cerro el modulo de administracion. Adios...\n\n\n\n");
 	system("pause>nul");
-	return false;
 }
 
 void password(int x, int y, char contrasenia[]){
@@ -207,7 +206,7 @@ bool login(){
                         gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
                         textcolor(BLACK);
                         textbackground(WHITE);
-                        gotoxy(26-7, 21+7); printf(" La contraseÃ±a no coincide con el usuario. ");
+                        gotoxy(26-7, 21+7); printf(" La contrase%ca no coincide con el usuario. ", 164);
                         textbackground(BLACK);
                         system("pause>nul");
                         system("cls");	
@@ -250,32 +249,26 @@ void registrarMascota(){
 	mascota animal;
 	FILE *arch = fopen("Mascotas.dat", "a+b");
 
-	printf("\n\t\tIngrese Nombre de la Mascota: ");
+	titulo_Generico(titulo, 0, 19, 4, 101, 4);
+	printf("\n\n\t\t\tIngrese Nombre de la Mascota y el Apellido del due%co: ", 164);
 	fflush(stdin);
 	gets(animal.apeNom );
-    printf("\n\t\tIngrese DNI del duenio: ");
+    printf("\n\t\t\tIngrese DNI del due%co: ", 164);
 	scanf("%d",&animal.dniDuenio);
-    printf("\n\t\tIngrese localidad: ");
+    printf("\n\t\t\tIngrese localidad: ");
 	fflush(stdin);
 	gets(animal.localidad);
-    printf("\n\t\tIngrese domicilio: ");
+    printf("\n\t\t\tIngrese domicilio: ");
     fflush(stdin);
 	gets(animal.domicilio);
-    printf("\n\t\tIngrese peso: ");
+    printf("\n\t\t\tIngrese peso: ");
 	scanf("%f", &animal.peso);
-    printf("\n\t\tIngrese telefono: ");
+    printf("\n\t\t\tIngrese telefono: ");
 	scanf("%d", &animal.telefono);
-    printf("\n\t\tFecha nacimiento:");
-    printf("\n\t\t\tDia: ");
-    scanf("%d", &animal.fechaDeNac.dia);
-    printf("\n\t\t\tMes: ");
-    scanf("%d", &animal.fechaDeNac.mes);
-    printf("\n\t\t\tAnio: ");
-    scanf("%d", &animal.fechaDeNac.anio);
-
-	//fseek(arch,sizeof(mascota),SEEK_END);
+    printf("\n\t\t\tFecha nacimiento DD/MM/AAAA: ");
+    scanf("%d/%d/%d", &animal.fechaDeNac.dia, &animal.fechaDeNac.mes, &animal.fechaDeNac.anio);
 	fwrite(&animal, sizeof(mascota), 1, arch);
-	printf("\n\t\tMascota registrada exitosamente...");
+	printf("\n\t\t\tMascota registrada exitosamente...");
 	system("pause>nul");
 	fclose(arch);
 }
@@ -284,23 +277,18 @@ void registrarTurno(){
 	turnos tur;
 	FILE *arch = fopen("Turnos.dat", "a+b");
 	
-	printf("\n\t\tIngrese matricula del veterinario: ");
+	titulo_Generico(titulo, 1, 19, 4, 101, 4);
+	printf("\n\n\t\t\tIngrese matricula del veterinario: ");
 	scanf("%d",&tur.matriculaVet);
-    printf("\n\t\tIngrese DNI del duenio: ");
+    printf("\n\t\t\tIngrese DNI del due%co: ", 164);
 	scanf("%d",&tur.dni_duenio);
-        
-    printf("\n\t\tFecha:");
-    printf("\n\t\t\tDia: ");
-    scanf("%d", &tur.fec.dia);
-    printf("\n\t\t\tMes: ");
-    scanf("%d", &tur.fec.mes);
-    printf("\n\t\t\tAnio: ");
-    scanf("%d", &tur.fec.anio);
+    printf("\n\t\t\tIngrese la fecha DD/MM/AAAA: ");
+    scanf("%d/%d/%d", &tur.fec.dia, &tur.fec.mes, &tur.fec.anio);
     tur.atendido=false;
 
 	fwrite(&tur, sizeof(turnos), 1, arch);
-	printf("\n\t\tTurno registrado exitosamente...");
-	system("pause");
+	printf("\n\t\t\tTurno registrado exitosamente...");
+	system("pause>nul");
 	fclose(arch);
 }
 
@@ -317,18 +305,16 @@ void listadoAtenciones(){
 	mascota masc;
 	char nombreMascota[50];
 
-	printf("\n\nIngrese una fecha:\n\t\t\tDia: ");
-	scanf("%d", &fecTurno.dia);
-	printf("\t\t\tMes: ");
-	scanf("%d", &fecTurno.mes);
-    printf("\t\t\tAnio: ");
-	scanf("%d", &fecTurno.anio);
+	printf("\n\nIngrese una fecha DD/MM/AAAA: ");
+	scanf("%d/&d/%d", &fecTurno.dia, &fecTurno.mes, &fecTurno.anio);
 	system("cls");
 
 	rewind(arch);
 	fread(&vet,sizeof(vet),1,arch1);
 	while(!feof(arch1)){
-		printf("\n\n\tVeterinario %s \n\t==================================", vet.apeNom);
+		gotoxy(20, 4); textbackground(LIGHTRED); textcolor(WHITE);
+    	printf("%c                         Veterinario %s                           %c", 219, vet.apeNom, 219);
+    	textbackground(BLACK);
 		rewind(arch);
 	    fread(&turno,sizeof(turnos),1,arch);
 	    while(!feof(arch)){
@@ -341,9 +327,8 @@ void listadoAtenciones(){
 					}
                     fread(&masc,sizeof(mascota),1,arch2);
 				}
-				printf("\n\t\t---------------------------------");
-				printf("\n\t\tNombre de la Mascota: %s", masc.apeNom);
-				printf("\n\t\tDNI del duenio: %d", turno.dni_duenio);
+				printf("\n\n\t\tNombre de la Mascota: %s", masc.apeNom);
+				printf("\n\t\tDNI del due%co: %d", 164, turno.dni_duenio);
                 printf("\n\t\tFecha: %d/%d/%d", turno.fec.dia, turno.fec.mes, turno.fec.anio);
                 printf("\n\t\tDetalle de la atencion: ");
                 for(int i=0; i<strlen(turno.detalles) ; i++){
@@ -359,7 +344,7 @@ void listadoAtenciones(){
 		system("cls");
 		fread(&vet, sizeof(veterinario), 1, arch1);
 	}
-    system("pause<nul");
+    system("pause>nul");
     fclose(arch);
     fclose(arch1);
     fclose(arch2);
