@@ -11,12 +11,24 @@
 
 text_info vActual = {0, 0, 79, 24, WHITE, WHITE, C80, 25, 80, 1, 1};
 
-//DECLARACI�N DE FUNCIONES
+//DECLARACI?N DE FUNCIONES
 
 void ocultarCursor();
 void gotoxy(int x, int y);
 void textcolor(int newcolor);
 void textbackground(int newcolor);
+void marco();
+void titulo_Generico(const char *titulo[], int i, int x1, int y1, int x2, int y2);
+void marcoGenerico(int x1, int x2, int y1, int y2);
+void password(int x, int y, char contrasenia[]);
+void barraPorcentaje(float Porcen, int x, int y);
+
+//FUNCIONES
+
+void ocultarCursor(){
+	
+	HANDLE hCon;
+	hCon= GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cci;
 	cci.dwSize= 2;
 	cci.bVisible= FALSE; 
@@ -26,7 +38,6 @@ void textbackground(int newcolor);
 }
 
 void gotoxy(int x, int y){
-
  HANDLE hcon = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD dwPos;
 	dwPos.X=x;
@@ -34,11 +45,8 @@ void gotoxy(int x, int y){
 	SetConsoleCursorPosition(hcon, dwPos);
 }
 
-
-
 void textcolor(int newcolor){
    CONSOLE_SCREEN_BUFFER_INFO csbi;
-
    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 
       (csbi.wAttributes & 0xf0) | newcolor);
@@ -47,7 +55,6 @@ void textcolor(int newcolor){
 
 void textbackground(int newcolor){
    CONSOLE_SCREEN_BUFFER_INFO csbi;
-
    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 
       (csbi.wAttributes & 0x0f) | (newcolor << 4));
@@ -66,11 +73,6 @@ void marco(){
 		gotoxy(87, i); printf("%c", 219);
 		gotoxy(88, i); printf("%c", 124);
 	}
-	
-	// gotoxy(36, 5); printf("%c", 219);
-	// gotoxy(87, 5); printf("%c", 219);
-	// gotoxy(36, 16); printf("%c", 219);
-	// gotoxy(87, 16); printf("%c", 219);
 }
 
 int menu(const char *titulo, const char *opciones[], int N){
@@ -102,9 +104,7 @@ int menu(const char *titulo, const char *opciones[], int N){
 		gotoxy(44, 10+i); printf("%d- %s", i+1, opciones[i]);
 	}
 	do{
-
 		gotoxy(40, 9+opcSeleccionada); textcolor(YELLOW); printf("==>"); textcolor(WHITE);
-
 			
 			do{
 				ocultarCursor();
@@ -137,6 +137,17 @@ int menu(const char *titulo, const char *opciones[], int N){
 	return opcSeleccionada;
 }
 
+void titulo_Generico(const char *titulo[], int i, int x1, int y1, int x2, int y2){
+	
+	gotoxy(x1, y1); textcolor(WHITE); printf("%c", 177);
+	textcolor(LIGHTRED);
+		for(int z=20; z<102; z++){
+			gotoxy(z, 4); printf("%c", 219);
+		}
+	gotoxy(x2, y2); textcolor(WHITE); printf("%c", 177);
+	textbackground(WHITE); textcolor(BLACK); gotoxy(51, 4); printf("%s", titulo[i]); textcolor(WHITE); textbackground(BLACK);
+}
+
 void marcoGenerico(int x1, int x2, int y1, int y2){
 	for(int i=x1; i<x2+1; i++){
 		gotoxy(i, y1); printf("%c", 219);
@@ -151,7 +162,7 @@ void marcoGenerico(int x1, int x2, int y1, int y2){
 	}
 }
 
-/*void barraPorcentaje(float Porcen, int x, int y){
+void barraPorcentaje(float Porcen, int x, int y){
 	int porcent;
 	
 	porcent=int(Porcen);
@@ -166,108 +177,85 @@ void marcoGenerico(int x1, int x2, int y1, int y2){
 		gotoxy(x+i+1,y); printf("%c", 219);
 	}
 	textcolor(WHITE);
-	
+
 	gotoxy(x+(porcent/2),y); printf("%.2f%%", Porcen);
 	textbackground(BLACK);
+
 	printf("\n");
-}*/
+}
 
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // }
-
 // // void password(int x, int y, char contrasenia[]){
 // // 	int i=0;
 // // 	char pass[32], caracter;
@@ -294,5 +282,4 @@ void marcoGenerico(int x1, int x2, int y1, int y2){
 // // 	}
 // // 	pass[i]='\0';
 // // 	strcpy(contrasenia,pass);
-
 // // }
