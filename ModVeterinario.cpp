@@ -1,5 +1,7 @@
 #include "Owntools.h"
+
 using namespace std;
+
 struct usuario{
     char apeNom[60];
 	char usuario[10];
@@ -7,6 +9,7 @@ struct usuario{
     char tipoUsuario;
 	int dni;
 };
+
 struct veterinario{
 	char apeNom[60];
     int matricula;
@@ -27,6 +30,7 @@ struct turnos{
     char detalles[382];
     bool atendido;
 };
+
 struct mascota{
 	char apeNom[60];
 	char domicilio[60];
@@ -49,7 +53,7 @@ veterinario datos;
 int main(int argc, char const *argv[])
 {
     bool band=false;
-	system("mode 120,35");
+	system("mode 120, 35");
     do
     {
         system("cls");
@@ -87,9 +91,7 @@ void menuPrincipal(){
 				break;
 			case 2: system("cls");registrarEvolucion();
 				break;
-			case 3: 
-				system("exit");
-				band=false;
+			case 3: band=false;
 				break;
 		}
 	}while(band);
@@ -123,6 +125,7 @@ void password(int x, int y, char contrasenia[]){
 	pass[i]='\0';
 	strcpy(contrasenia,pass);
 }
+
 bool login(){
     FILE *arch=fopen("Usuarios.dat", "r+b");
 	FILE *arch1=fopen("Veterinarios.dat", "r+b");
@@ -414,4 +417,3 @@ void registrarEvolucion(){
 	fclose(arch);
 	fclose(arch2);
 }
-
