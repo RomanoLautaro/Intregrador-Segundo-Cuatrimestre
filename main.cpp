@@ -447,7 +447,7 @@ void rankingDeVeterinarios(){
         gotoxy(30, 4);
         textbackground(LIGHTRED);
         textcolor(WHITE);
-        printf("%c                RANKING DE ATENCIONES                %c", 219,219);
+        printf("     %c                RANKING DE ATENCIONES                %c", 219,219);
         textbackground(BLACK);
         for (int i = 0; i < N; i++)
         {

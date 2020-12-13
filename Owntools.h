@@ -168,7 +168,7 @@ void barraPorcentaje(float Porcen, int x, int y){
 	porcent=int(Porcen);
 	textcolor(WHITE);
 	gotoxy(x,y); printf("%c", 178);
-	gotoxy(x+101,y); printf("%c", 178);
+	gotoxy(x+102,y); printf("%c", 178);
 	
 	
 	textcolor(LIGHTRED);

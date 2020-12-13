@@ -49,6 +49,7 @@ void menuPrincipal();
 
 usuario admin;
 veterinario datos;
+const char *titulo[]={"LISTA DE TURNOS"};
 
 int main(int argc, char const *argv[])
 {
@@ -280,7 +281,7 @@ void listaDeEspera(){
 							printf("\n\t\t==============================================\n");
 							printf("\t\tNombre de la mascota: %s\n",nombreMascota);
 							printf("\t\tDNI del duenio: %d\n", tur.dni_duenio);
-							printf("\t\tFecha en la que se otorgo el turno: %d-%d-%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
+							printf("\t\tFecha de turno: %d-%d-%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
 							turnoparavet = true;
 						}
 					}
@@ -342,7 +343,7 @@ void registrarEvolucion(){
 	}else{
 		do{
 			system("cls");
-			printf("\n\t\t\tLista de turnos\n\t\t==============================================\n");
+			titulo_Generico(titulo, 0, 19, 4, 101, 4);
 			rewind(arch);
 			fread(&tur, sizeof(tur), 1, arch);
 			while (!feof(arch))
