@@ -30,6 +30,7 @@ struct turnos{
     char detalles[382];
     bool atendido;
 };
+
 struct mascota{
 	char apeNom[60];
 	char domicilio[60];
@@ -99,7 +100,7 @@ void menuPrincipal(bool &b){
 			case 2: system("cls");registrarTurno();
 				break;
 			case 3: system("cls"); listadoAtenciones();
-			case 4: band=false; b=false;//system("exit");
+			case 4: band=false; b=false;
 				break;
 		}
 	}while(band);
@@ -156,21 +157,17 @@ bool login(){
             textcolor(BLACK);
             textbackground(WHITE);
             gotoxy(50, 9); printf(" INGRESO DE USUARIO ");
-            textbackground(BLACK);
-            textcolor(WHITE);
+			textbackground(BLACK); textcolor(WHITE);
             gotoxy(50-10, 15);printf("USUARIO: ");
             gotoxy(50-13, 17);printf("CONTRASE%cA: ", 165);
 			fflush(stdin);
-			gotoxy(58 - 10, 15);
-			textbackground(WHITE);
-			printf("                                 ");
+			gotoxy(58 - 10, 15); textbackground(WHITE); printf("                                 ");
 			gotoxy(61-13, 17); textbackground(WHITE); printf("                                 ");
             textcolor(BLACK);
             gotoxy(58-10, 15); gets(user.usuario);
             password(61-13, 17 , user.contrasenia);
             //gotoxy(63, 17);gets(user.contrasenia);
-            textcolor(WHITE);
-            textbackground(BLACK);
+            textcolor(WHITE); textbackground(BLACK);
             rewind(arch);
             fread(&admin,sizeof(usuario),1,arch);
             while(!feof(arch)){
@@ -244,31 +241,34 @@ bool login(){
     
 }
 
-
 void registrarMascota(){
 	mascota animal;
 	FILE *arch = fopen("Mascotas.dat", "a+b");
 
 	titulo_Generico(titulo, 0, 19, 4, 101, 4);
-	printf("\n\n\t\t\tIngrese Nombre de la Mascota y el Apellido del due%co: ", 164);
-	fflush(stdin);
-	gets(animal.apeNom );
-    printf("\n\t\t\tIngrese DNI del due%co: ", 164);
-	scanf("%d",&animal.dniDuenio);
-    printf("\n\t\t\tIngrese localidad: ");
-	fflush(stdin);
-	gets(animal.localidad);
-    printf("\n\t\t\tIngrese domicilio: ");
-    fflush(stdin);
-	gets(animal.domicilio);
-    printf("\n\t\t\tIngrese peso: ");
-	scanf("%f", &animal.peso);
-    printf("\n\t\t\tIngrese telefono: ");
-	scanf("%d", &animal.telefono);
-    printf("\n\t\t\tFecha nacimiento DD/MM/AAAA: ");
-    scanf("%d/%d/%d", &animal.fechaDeNac.dia, &animal.fechaDeNac.mes, &animal.fechaDeNac.anio);
+	gotoxy(22, 7); textcolor(YELLOW); printf("%cIngrese Nombre de la Mascota y el Apellido del due%co:", 175, 164);
+	gotoxy(77, 7); textbackground(WHITE); textcolor(BLACK); printf("                     "); 
+	fflush(stdin); gotoxy(77, 7); gets(animal.apeNom ); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(22, 9); textcolor(YELLOW); printf("%cIngrese DNI del due%co:", 175, 164);
+    gotoxy(46, 9); textbackground(WHITE); textcolor(BLACK); printf("                     ");
+	gotoxy(46, 9); scanf("%d",&animal.dniDuenio); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(22, 11); textcolor(YELLOW); printf("%cIngrese localidad:", 175);
+    gotoxy(43, 11); textbackground(WHITE); textcolor(BLACK); printf("                        ");
+	fflush(stdin); gotoxy(43, 11); gets(animal.localidad); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(22, 13); textcolor(YELLOW); printf("%cIngrese domicilio:", 175);
+    gotoxy(42, 13); textbackground(WHITE); textcolor(BLACK); printf("                          ");
+    fflush(stdin); gotoxy(42, 13); gets(animal.domicilio); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(22, 15); textcolor(YELLOW); printf("%cIngrese peso:", 175);
+    gotoxy(38, 15); textbackground(WHITE); textcolor(BLACK); printf("      ");
+	gotoxy(38, 15); scanf("%f", &animal.peso); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(22, 17); textcolor(YELLOW); printf("%cIngrese telefono:", 175);
+    gotoxy(41, 17); textbackground(WHITE); textcolor(BLACK); printf("                         ");
+	gotoxy(41, 17); scanf("%d", &animal.telefono); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(22, 19); textcolor(YELLOW); printf("%cFecha nacimiento DD/MM/AAAA:", 175);
+    gotoxy(52, 19); textbackground(WHITE); textcolor(BLACK); printf("              ");
+    gotoxy(52, 19);scanf("%d/%d/%d", &animal.fechaDeNac.dia, &animal.fechaDeNac.mes, &animal.fechaDeNac.anio); textbackground(BLACK); textcolor(WHITE);
 	fwrite(&animal, sizeof(mascota), 1, arch);
-	printf("\n\t\t\tMascota registrada exitosamente...");
+	gotoxy(44, 25); printf("Mascota registrada exitosamente...");
 	system("pause>nul");
 	fclose(arch);
 }
@@ -279,16 +279,19 @@ void registrarTurno(){
 	FILE *arch = fopen("Turnos.dat", "a+b");
 	
 	titulo_Generico(titulo, 1, 19, 4, 101, 4);
-	printf("\n\n\t\t\tIngrese matricula del veterinario: ");
-	scanf("%d",&tur.matriculaVet);
-    printf("\n\t\t\tIngrese DNI del due%co: ", 164);
-	scanf("%d",&tur.dni_duenio);
-    printf("\n\t\t\tIngrese la fecha DD/MM/AAAA: ");
-    scanf("%d/%d/%d", &tur.fec.dia, &tur.fec.mes, &tur.fec.anio);
+	gotoxy(24, 7); textcolor(YELLOW); printf("%cIngrese matricula del veterinario:", 175);
+	gotoxy(60, 7); textbackground(WHITE); textcolor(BLACK); printf("       ");
+	gotoxy(60, 7); scanf("%d",&tur.matriculaVet); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(24, 9); textcolor(YELLOW); printf("%cIngrese DNI del due%co:", 175, 164);
+    gotoxy(48, 9); textbackground(WHITE); textcolor(BLACK); printf("          ");
+	gotoxy(48, 9); scanf("%d",&tur.dni_duenio); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(24, 11); textcolor(YELLOW); printf("%cIngrese la fecha del turno DD/MM/AAAA:", 175);
+    gotoxy(65, 11); textbackground(WHITE); textcolor(BLACK); printf("             ");
+    gotoxy(65, 11); scanf("%d/%d/%d", &tur.fec.dia, &tur.fec.mes, &tur.fec.anio); textbackground(BLACK); textcolor(WHITE);
     tur.atendido=false;
 
 	fwrite(&tur, sizeof(turnos), 1, arch);
-	printf("\n\t\t\tTurno registrado exitosamente...");
+	gotoxy(44, 17); printf("Turno registrado exitosamente...");
 	system("pause>nul");
 	fclose(arch);
 }
@@ -298,55 +301,57 @@ void listadoAtenciones(){
 	FILE *arch1 = fopen("Veterinarios.dat", "r+b");
     FILE *arch2 = fopen("Mascotas.dat", "r+b");
 	if(arch==NULL){
-        printf("\n\n\t\tNO SE ASIGNO NINGUN TURNO...");
-    }
-    turnos turno;
-	veterinario vet;
-	fecha fecTurno;
-	mascota masc;
-	char nombreMascota[50];
+        gotoxy(44, 14); printf("NO SE ASIGNO NINGUN TURNO...");
+        system("pause>nul");
+    }else{
+    	turnos turno;
+		veterinario vet;
+		fecha fecTurno;
+		mascota masc;
+		char nombreMascota[50];
 
-	printf("\n\nIngrese una fecha DD/MM/AAAA: ");
-	scanf("%d/&d/%d", &fecTurno.dia, &fecTurno.mes, &fecTurno.anio);
-	system("cls");
-
-	rewind(arch);
-	fread(&vet,sizeof(vet),1,arch1);
-	while(!feof(arch1)){
-		gotoxy(20, 4); textbackground(LIGHTRED); textcolor(WHITE);
-    	printf("%c                         Veterinario %s                           %c", 219, vet.apeNom, 219);
-    	textbackground(BLACK);
-		rewind(arch);
-	    fread(&turno,sizeof(turnos),1,arch);
-	    while(!feof(arch)){
-	    	rewind(arch2);
-	    	fread(&masc,sizeof(mascota),1,arch2);
-            if(vet.matricula == turno.matriculaVet && turno.atendido==true && turno.fec.dia == fecTurno.dia && turno.fec.mes == fecTurno.mes && turno.fec.anio == fecTurno.anio){
-				while(!feof(arch2)){
-					if(turno.dni_duenio == masc.dniDuenio){
-						break;
-					}
-                    fread(&masc,sizeof(mascota),1,arch2);
-				}
-				printf("\n\n\t\tNombre de la Mascota: %s", masc.apeNom);
-				printf("\n\t\tDNI del due%co: %d", 164, turno.dni_duenio);
-                printf("\n\t\tFecha: %d/%d/%d", turno.fec.dia, turno.fec.mes, turno.fec.anio);
-                printf("\n\t\tDetalle de la atencion: ");
-                for(int i=0; i<strlen(turno.detalles) ; i++){
-                    cout<<turno.detalles[i];
-                    if(i==80-24 or i==160-24 or i==240-24 or i==320-24){
-                        cout<<"\n\t\t";
-                    }
-                }
-			}
-			fread(&turno,sizeof(turnos),1,arch);
-        }
-		system("pause>nul");
+		printf("\n\nIngrese una fecha DD/MM/AAAA: ");
+		scanf("%d/&d/%d", &fecTurno.dia, &fecTurno.mes, &fecTurno.anio);
 		system("cls");
-		fread(&vet, sizeof(veterinario), 1, arch1);
+
+		rewind(arch);
+		fread(&vet,sizeof(vet),1,arch1);
+			while(!feof(arch1)){
+				gotoxy(20, 4); textbackground(LIGHTRED); textcolor(WHITE);
+    			printf("%c                         Veterinario %s                           %c", 219, vet.apeNom, 219);
+    			textbackground(BLACK);
+				rewind(arch);
+	    		fread(&turno,sizeof(turnos),1,arch);
+	    			while(!feof(arch)){
+	    				rewind(arch2);
+	    				fread(&masc,sizeof(mascota),1,arch2);
+            				if(vet.matricula == turno.matriculaVet && turno.atendido==true && turno.fec.dia == fecTurno.dia && turno.fec.mes == fecTurno.mes && turno.fec.anio == fecTurno.anio){
+								while(!feof(arch2)){
+										if(turno.dni_duenio == masc.dniDuenio){
+											break;
+										}
+                    					fread(&masc,sizeof(mascota),1,arch2);
+								}
+								printf("\n\n\t\tNombre de la Mascota: %s", masc.apeNom);
+								printf("\n\t\tDNI del due%co: %d", 164, turno.dni_duenio);
+                				printf("\n\t\tFecha: %d/%d/%d", turno.fec.dia, turno.fec.mes, turno.fec.anio);
+                				printf("\n\t\tDetalle de la atencion: ");
+                					for(int i=0; i<strlen(turno.detalles) ; i++){
+                    					cout<<turno.detalles[i];
+                    						if(i==80-24 or i==160-24 or i==240-24 or i==320-24){
+                        						cout<<"\n\t\t";
+                    						}				
+                					}
+							}
+						fread(&turno,sizeof(turnos),1,arch);
+        			}
+				system("pause>nul");
+				system("cls");
+				fread(&vet, sizeof(veterinario), 1, arch1);
+			}
+    	system("pause>nul");
+    	fclose(arch);
+    	fclose(arch1);
+    	fclose(arch2);
 	}
-    system("pause>nul");
-    fclose(arch);
-    fclose(arch1);
-    fclose(arch2);
 }
