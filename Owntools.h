@@ -96,12 +96,12 @@ int menu(const char *titulo, const char *opciones[], int N){
 	gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
 	textcolor(BLACK);
 	textbackground(WHITE);
-	gotoxy(26-7, 21+7); printf(" Utilize las flechas direccionales para moverse en las opciones y ENTER para seleccionar. ");
+	gotoxy(26-7, 21+7); printf(" Utilice las flechas direccionales para moverse en las opciones y ENTER para seleccionar. ");
 	textbackground(BLACK);
 	textcolor(WHITE);
 	for(int i=0; i<N; i++){ 
 		
-		gotoxy(44, 10+i); printf("%d- %s", i+1, opciones[i]);
+		gotoxy(44, 10+i); printf(" %c %s", 175,opciones[i]);
 	}
 	do{
 		gotoxy(40, 9+opcSeleccionada); textcolor(YELLOW); printf("==>"); textcolor(WHITE);

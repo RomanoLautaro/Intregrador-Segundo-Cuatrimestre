@@ -418,3 +418,5 @@ void registrarEvolucion(){
 	fclose(arch);
 	fclose(arch2);
 }
+
+

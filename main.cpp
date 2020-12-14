@@ -170,7 +170,7 @@ void registroVet(usuario user){
 	titulo_Generico(titulo, 1, 19, 4, 101, 4);
     
     do{
-	    gotoxy(22, 7); printf("%cINGRESE SU MATRICULA:", 175);
+	    gotoxy(22, 7); textcolor(YELLOW); printf("%cINGRESE SU MATRICULA:", 175);
 		gotoxy(45, 7); textbackground(WHITE); textcolor(BLACK); printf("          "); 
 		gotoxy(45, 7); scanf("%d", &vet.matricula); textbackground(BLACK); textcolor(WHITE);
         if(vet.matricula==0){
@@ -194,7 +194,7 @@ void registroVet(usuario user){
     if(vet.matricula != 0){
 	    strcpy(vet.apeNom,user.apeNom);
 		vet.dni=user.dni;
-        gotoxy(22, 9); printf("%cINGRESE SU NUMERO DE TELEFONO:", 175);
+        gotoxy(22, 9); textcolor(YELLOW); printf("%cINGRESE SU NUMERO DE TELEFONO:", 175);
 		gotoxy(54, 9); textbackground(WHITE); textcolor(BLACK); printf("                       "); 
 		gotoxy(54, 9); _flushall(); gets(vet.telefono); textbackground(BLACK); textcolor(WHITE);
         fseek(arch, sizeof(veterinario), SEEK_END);
@@ -444,10 +444,10 @@ void rankingDeVeterinarios(){
             }
             
         }
-        gotoxy(30, 4);
+        gotoxy(24, 4);
         textbackground(LIGHTRED);
         textcolor(WHITE);
-        printf("     %c                RANKING DE ATENCIONES                %c", 219,219);
+        printf("%c                  RANKING DE ATENCIONES POR VETERINARIOS                  %c", 219,219);
         textbackground(BLACK);
         for (int i = 0; i < N; i++)
         {
