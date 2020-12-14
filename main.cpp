@@ -7,6 +7,7 @@ struct fecha{
 	int mes;
 	int anio;
 };
+
 struct usuario{
     char apeNom[60];
 	char usuario[10];
@@ -14,6 +15,7 @@ struct usuario{
     char tipoUsuario;
 	int dni;
 };
+
 struct mascota{
 	char apeNom[60];
 	char domicilio[60];
@@ -55,8 +57,7 @@ void barraPorcentaje(float Porcen, int x, int y);
 
 const char *titulo[]={"REGISTRO DE USUARIO", "REGISTRO DE VETERINARIO"};
  
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]){
     system("mode 120,35");
     usuario user; 
     menu_principal(user);    
@@ -93,8 +94,7 @@ void registroUser(usuario user){
     FILE *arch=fopen("Usuarios.dat", "a+b");
     usuario aux;
     bool band=false, vBool;
-	do
-    {
+	do{
         band=false;
         system("cls");
         titulo_Generico(titulo, 0, 19, 4, 101, 4);
@@ -121,20 +121,17 @@ void registroUser(usuario user){
             }
             
         }else system("pause>nul");	
-		
-        
     } while (band==true or vBool==false);
     _flushall();
-    do
-    {
+    do{
         system("cls");
     	titulo_Generico(titulo, 0, 19, 4, 101, 4);
 		gotoxy(22, 7); textcolor(YELLOW); printf("%cINGRESE USUARIO:", 175);
 		gotoxy(41, 7); textbackground(WHITE); textcolor(BLACK); printf("%s                               ", user.usuario);
 		textbackground(BLACK); textcolor(WHITE);
 		gotoxy(22, 9); textcolor(YELLOW); printf("%cINGRESE CONTRASENIA:", 175);
-		gotoxy(44, 9); textbackground(WHITE); textcolor(BLACK); printf("                                 "); 
-		gotoxy(44, 9);gets(user.contrasenia); textbackground(BLACK); textcolor(WHITE);
+		gotoxy(44, 9); textbackground(WHITE); textcolor(BLACK); printf("                                  ");
+		gotoxy(44, 9); gets(user.contrasenia); textbackground(BLACK); textcolor(WHITE);
         band=verificarPassword(user);
     } while (band==false);
     
@@ -145,7 +142,7 @@ void registroUser(usuario user){
 	gotoxy(36, 13); textbackground(WHITE); textcolor(BLACK); printf("                                 "); 
 	gotoxy(36, 13); scanf("%d", &user.dni);textbackground(BLACK); textcolor(WHITE);
 	gotoxy(22, 15); textcolor(YELLOW); printf("%cINGRESE TIPO DE USUARIO [V=Veterinario; A=asistente]:", 175);
-	gotoxy(77, 15); textbackground(WHITE); textcolor(BLACK); printf("       "); 
+	gotoxy(77, 15); textbackground(WHITE); textcolor(BLACK); printf("      ");  
 	gotoxy(77, 15);_flushall(); scanf("%c", &user.tipoUsuario); textbackground(BLACK); textcolor(WHITE);
     
     if(user.tipoUsuario=='V' || user.tipoUsuario == 'v'){
@@ -153,11 +150,9 @@ void registroUser(usuario user){
     }
     fseek(arch, sizeof(usuario), SEEK_END);
     fwrite(&user, sizeof(usuario), 1, arch);
-    printf("\n\t\t\tSE HA REGISTRADO DE FORMA EXITOSA.");
-    system("pause>nul");
-
-    
+    gotoxy(40, 21); printf("SE HA REGISTRADO DE FORMA EXITOSA.");
     fclose(arch);
+    system("pause>nul");
 }
 
 void registroVet(usuario user){
@@ -171,7 +166,7 @@ void registroVet(usuario user){
     
     do{
 	    gotoxy(22, 7); textcolor(YELLOW); printf("%cINGRESE SU MATRICULA:", 175);
-		gotoxy(45, 7); textbackground(WHITE); textcolor(BLACK); printf("          "); 
+		gotoxy(45, 7); textbackground(WHITE); textcolor(BLACK); printf("       "); 
 		gotoxy(45, 7); scanf("%d", &vet.matricula); textbackground(BLACK); textcolor(WHITE);
         if(vet.matricula==0){
                 break;
@@ -252,8 +247,7 @@ bool verificarPassword(usuario pass){
         system("pause>nul");
         return false;
     }
-	for (int i = 0; i < strlen(pass.contrasenia); i++)
-	{
+	for (int i = 0; i < strlen(pass.contrasenia); i++){
 		if(pass.contrasenia[i] >= 65 && pass.contrasenia[i]<= 90) contMay++;
 	    if(pass.contrasenia[i] >= 97 && pass.contrasenia[i]<= 122) contMin++;
         if(pass.contrasenia[i] >= 97 && pass.contrasenia[i]<= 122) contNum++;
@@ -264,8 +258,7 @@ bool verificarPassword(usuario pass){
         return false;
 	}
 
-    for (int i = 0; i < strlen(pass.contrasenia); i++)
-	{
+    for (int i = 0; i < strlen(pass.contrasenia); i++){
 		if(pass.contrasenia[i] >= 160 && pass.contrasenia[i]<= 163 || pass.contrasenia[i] == 130 || pass.contrasenia[i] == 181 || pass.contrasenia[i] == 144 ||
             pass.contrasenia[i] == 214 || pass.contrasenia[i] == 224 || pass.contrasenia[i] == 233 ){
             printf("\n\t\t\tLa Contrasenia No puede contener acentos. Solo caracteres alfanumericos...");
@@ -275,8 +268,7 @@ bool verificarPassword(usuario pass){
 		
     }
 
-    for (int i = 0; i < strlen(pass.contrasenia); i++)
-    {   
+    for (int i = 0; i < strlen(pass.contrasenia); i++){   
         if(pass.contrasenia[i]=='.' or pass.contrasenia[i]==',' or pass.contrasenia[i]==';' or pass.contrasenia[i]==' '){
             printf("\n\t\t\tLa Contrasenia NO debe contener ningun caracter de puntuacion y/o espacios, solo caracteres alfanumericos...");
             system("pause>nul");
@@ -284,10 +276,8 @@ bool verificarPassword(usuario pass){
         }
     }
 
-    for (int i = 0; i < strlen(pass.contrasenia); i++)
-    {
-       if (pass.contrasenia[i+2]!='\0')
-       {
+    for (int i = 0; i < strlen(pass.contrasenia); i++){
+       if (pass.contrasenia[i+2]!='\0'){
            if(pass.contrasenia[i] <=48 && pass.contrasenia[i]<=57){
                 if(pass.contrasenia[i+1] <=48 && pass.contrasenia[i+1]<=57){
                     if(pass.contrasenia[i+2] <=48 && pass.contrasenia[i+2]<=57){
@@ -300,18 +290,14 @@ bool verificarPassword(usuario pass){
        }
        
     }
-    for (int i = 0; i < strlen(pass.contrasenia); i++)
-    {   
-        if (pass.contrasenia[i+1]!='\0')
-        {
+    for (int i = 0; i < strlen(pass.contrasenia); i++){   
+        if (pass.contrasenia[i+1]!='\0'){
             aux[0]=pass.contrasenia[i];
             aux[1]=pass.contrasenia[i+1];
             toupper(aux[0]);
             toupper(aux[1]);
-            if(aux[0]>=65 && aux[0]<=90 && aux[1]>=65 && aux[1]<=90)
-            {
-                if(aux[0]+1==aux[1])
-                {
+            if(aux[0]>=65 && aux[0]<=90 && aux[1]>=65 && aux[1]<=90){
+                if(aux[0]+1==aux[1]){
                     printf("\n\t\t\tLa Contrasenia NO debe contener caracteres consecutivos que refieran a letras alfabeticamente consecutivas...");
                     system("pause>nul");
                     return false;
@@ -382,7 +368,6 @@ void atencionesVeterinarios(){
     fclose(arch);
     fclose(arch1);
 	}
-    
 }
 
 void rankingDeVeterinarios(){
@@ -396,8 +381,7 @@ void rankingDeVeterinarios(){
     turnos turno;
 	veterinario vet;
     atenciones atencion[50], aux;
-    if (arch!=NULL and arch1!=NULL)
-    {
+    if (arch!=NULL and arch1!=NULL) {
         fread(&turno,sizeof(turnos),1,arch);
         while(!feof(arch)){
             if(turno.atendido==true) c++;
@@ -423,13 +407,9 @@ void rankingDeVeterinarios(){
             N++;
             fread(&vet, sizeof(veterinario), 1, arch1);
         }
-        for (int i = 0; i < N; i++)
-        {
-            for (int j = 0; j < N; j++)
-            {
-                if (atencion[i].cantAten>atencion[j].cantAten)
-                {
-                    
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++){
+                if (atencion[i].cantAten>atencion[j].cantAten){
                     strcpy(aux.apeNom, atencion[i].apeNom);
                     aux.cantAten=atencion[i].cantAten;
                     aux.porc=atencion[i].porc;
@@ -449,12 +429,9 @@ void rankingDeVeterinarios(){
         textcolor(WHITE);
         printf("%c                  RANKING DE ATENCIONES POR VETERINARIOS                  %c", 219,219);
         textbackground(BLACK);
-        for (int i = 0; i < N; i++)
-        {
-            for (int j = 8; j < 114; j++)
-            {
+        for (int i = 0; i < N; i++){
+            for (int j = 8; j < 114; j++){
                 gotoxy(j,6+contLineas+1);printf("%c", 220);
-
             }
             textcolor(LIGHTRED);
             textbackground(WHITE);
@@ -471,8 +448,7 @@ void rankingDeVeterinarios(){
 
         fclose(arch);
         fclose(arch1);
-    }else
-    {
+    }else{
     	system("cls");
         gotoxy(42, 12); printf("NO SE HAN AGREGADO TURNOS...");
         system("pause>nul");
