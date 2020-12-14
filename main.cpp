@@ -218,8 +218,7 @@ bool verifUser(usuario user){
     }
     for (int i = 0; i < large ; i++)
     {
-        if (user.usuario[i]>=65 and user.usuario[i]<=90)
-        {
+        if (user.usuario[i]>=65 and user.usuario[i]<=90){
             c++;
         }
         if(c>=2) break;
@@ -362,16 +361,17 @@ void atencionesVeterinarios(){
 			}
 			printf("\n");
             if(vet.matricula == turno.matriculaVet && turno.atendido==true){
-				printf("\n\n\t\t\tNombre de la mascota: %s\n", nombreMascota);
-				printf("\n\t\t\tDNI del duenio: %d\n", turno.dni_duenio);
-                printf("\n\t\t\tFecha en la que se otorgo el turno: %d/%d/%d\n", turno.fec.dia, turno.fec.mes, turno.fec.anio);
-                printf("\n\t\t\tDetalle de la atencion: ");
+				textcolor(YELLOW); printf("\n\t\t\t%c ", 175); textcolor(WHITE); printf("Nombre de la mascota: %s\n", nombreMascota);
+				textcolor(YELLOW); printf("\t\t\t%c ", 175); textcolor(WHITE); printf("DNI del duenio: %d\n", turno.dni_duenio);
+                textcolor(YELLOW); printf("\t\t\t%c ", 175); textcolor(WHITE); printf("Fecha en la que se otorgo el turno: %d/%d/%d\n", turno.fec.dia, turno.fec.mes, turno.fec.anio);
+                textcolor(YELLOW); printf("\t\t\t%c ", 175); textcolor(WHITE); printf("Detalle de la atencion: ");
                 for(int i=0; i<strlen(turno.detalles) ; i++){
                     cout<<turno.detalles[i];
-                    if(i>80 or i>160 or i>240 or i>320){
-                        cout<<"\n";
+                    if(i==47 or i==120 or i==240 or i==320){
+                        cout<<"\n\t\t\t  ";
                     }
                 }
+                printf("\n\n\t\t     ==============================================================================\n");
 			}
 			fread(&turno,sizeof(turnos),1,arch);
         }

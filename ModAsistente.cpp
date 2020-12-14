@@ -84,7 +84,7 @@ void menuPrincipal(bool &b){
 		for(int i=35; i<88+1; i++){
 		gotoxy(i, 20); printf("%c", 219);
 		gotoxy(i, 25); printf("%c", 219);
-		}
+		}    
 		for(int i=20; i<25+1; i++){
 			gotoxy(35, i); printf("%c", 178);
 			gotoxy(88, i); printf("%c", 178);
@@ -273,7 +273,8 @@ void registrarMascota(){
 	fclose(arch);
 }
 
-void registrarTurno(){
+void registrarTurno(){ 
+
 	turnos tur;
 	FILE *arch = fopen("Turnos.dat", "a+b");
 	
