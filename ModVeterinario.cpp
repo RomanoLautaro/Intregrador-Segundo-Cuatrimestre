@@ -49,20 +49,20 @@ void menuPrincipal();
 
 usuario admin;
 veterinario datos;
-const char *titulo[]={"LISTA DE TURNOS"};
+const char *titulo[]={"LISTA DE ESPERA", "REGISTRAR EVOLUCION"};
 
 int main(int argc, char const *argv[])
 {
     bool band=false;
 	system("mode 120, 35");
-    do
-    {
-        system("cls");
         if(login()==true) {
             band = true;
         }
-    } while (band==false);
-    menuPrincipal();
+        if(band==true){
+        	system("cls");
+    		menuPrincipal();
+		}
+    
     return 0;
 }
 
@@ -132,13 +132,11 @@ bool login(){
 	FILE *arch1=fopen("Veterinarios.dat", "r+b");
     usuario user;
     bool band=false;
-    system("mode 120,35");
     if (arch==NULL and arch1==NULL)
     {
-        printf("\n\n\t\t No se ha registrado ningun usuario. Por favor solicite uno para poder continuar.");
+        gotoxy(23, 14); printf("No se ha registrado ningun usuario. Por favor solicite uno para poder continuar.\n\n\n\n");
         system("pause>nul");
-        system("exit");
-    
+        return false;
     }else{
         do{
             textcolor(YELLOW);
@@ -226,16 +224,14 @@ bool login(){
             }
         } while (band==false);
 		fread(&datos,sizeof(veterinario),1,arch1);
-        while(!feof(arch1)){
-			if(admin.dni==datos.dni) break;
-			fread(&datos,sizeof(veterinario),1,arch1);
-		}
-		
+       	 	while(!feof(arch1)){
+					if(admin.dni==datos.dni) break;
+						fread(&datos,sizeof(veterinario),1,arch1);
+					}
+		fclose(arch);
+		fclose(arch1);
+    	return true;
     }
-    fclose(arch);
-	fclose(arch1);
-    return true;
-    
 }
 
 void listaDeEspera(){
@@ -257,31 +253,26 @@ void listaDeEspera(){
 		system("pause");
 	}
 	else{
-			printf("\n\t\t\tLista de espera\n\t\t==============================================\n");
-			
-			printf("\n\tDatos.matricula:  %d",datos.matricula);//ERROR La matricula no se guarda
-			
-			rewind(arch);
-			fread(&tur, sizeof(tur), 1, arch);
-			while (!feof(arch))
-				{
-					if (tur.matriculaVet == datos.matricula)
-					{
-						if (tur.atendido == false)
-						{
+		titulo_Generico(titulo, 0, 19, 4, 101, 4);
+		printf("\n\n\t\t\tDatos matricula:  %d\n\n",datos.matricula);//ERROR La matricula no se guarda
+		rewind(arch);
+		fread(&tur, sizeof(tur), 1, arch);
+			while (!feof(arch)){
+					if (tur.matriculaVet == datos.matricula){
+						if (tur.atendido == false){
 					    	rewind(arch2);
 					    	fread(&masc,sizeof(mascota),1,arch2);
-							while(!feof(arch2)){
-								if(tur.dni_duenio == masc.dniDuenio){
-									strcpy(nombreMascota,masc.apeNom);
-									//break;
+								while(!feof(arch2)){
+										if(tur.dni_duenio==masc.dniDuenio){
+											strcpy(nombreMascota,masc.apeNom);
+											//break;
+										}
+									fread(&masc,sizeof(mascota),1,arch2);
 								}
-								fread(&masc,sizeof(mascota),1,arch2);
-							}
-							printf("\n\t\t==============================================\n");
-							printf("\t\tNombre de la mascota: %s\n",nombreMascota);
-							printf("\t\tDNI del duenio: %d\n", tur.dni_duenio);
-							printf("\t\tFecha de turno: %d-%d-%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
+							printf("\t\t\tNombre de la mascota: %s\n",nombreMascota);
+							printf("\t\t\tDNI del duenio: %d\n", tur.dni_duenio);
+							printf("\t\t\tFecha de turno: %d/%d/%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
+							printf("\n\t\t     ==============================================================================\n");
 							turnoparavet = true;
 						}
 					}
@@ -290,7 +281,7 @@ void listaDeEspera(){
 		}
 			if(turnoparavet==true){
 				do{
-					printf("\n\n\t\tDesea ver informacion de alguna mascota? [s/n]: ");
+					printf("\n\t\t\tDesea ver informacion de alguna mascota? [s/n]: ");
 					fflush(stdin);
 					scanf("%c",&opc);
 					if(opc == 's' || opc == 'S'){
@@ -319,7 +310,7 @@ void listaDeEspera(){
 					}
 				}while(opc == 's' || opc == 'S');
 			}else{
-				printf("\n\t\tNo hay turnos registrados...");
+				gotoxy(44, 10); printf("No hay turnos registrados...");
 				system("pause>nul");
 			}
 	fclose(arch);
@@ -343,15 +334,12 @@ void registrarEvolucion(){
 	}else{
 		do{
 			system("cls");
-			titulo_Generico(titulo, 0, 19, 4, 101, 4);
+			titulo_Generico(titulo, 1, 19, 4, 101, 4);
 			rewind(arch);
 			fread(&tur, sizeof(tur), 1, arch);
-			while (!feof(arch))
-			{
-					if (tur.matriculaVet == datos.matricula)
-					{
-						if (tur.atendido == false)
-						{
+			while (!feof(arch)){
+					if (tur.matriculaVet == datos.matricula){
+						if (tur.atendido == false){
 					    	rewind(arch2);
 					    	fread(&masc,sizeof(mascota),1,arch2);
 							while(!feof(arch2)){
@@ -361,19 +349,18 @@ void registrarEvolucion(){
 								}
 								fread(&masc,sizeof(mascota),1,arch2);
 							}
-							printf("\n\t\t==============================================\n");
-							printf("\t\tNombre de la mascota: %s\n",nombreMascota);
-							printf("\t\tDNI del duenio: %d\n", tur.dni_duenio);
-							printf("\t\tFecha en la que se otorgo el turno: %d-%d-%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
+							
+							printf("\n\n\t\t\tNombre de la mascota: %s\n",nombreMascota);
+							printf("\t\t\tDNI del due%co: %d\n", 164, tur.dni_duenio);
+							printf("\t\t\tFecha en la que se otorgo el turno: %d/%d/%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
+							printf("\n\t\t     ==============================================================================\n");
 							turnoparavet = true;
 						}
 					}
 					fread(&tur, sizeof(tur), 1, arch);
 			}
 			
-			
-			printf("\n\t\tRegistrar evolucion\n\t\t========================\n");
-			printf("\n\t\tIngrese Apellido y nombre de la mascota: ");
+			printf("\n\t\t\tIngrese Nombre y Apellido de la mascota: ");
 			fflush(stdin);
 			gets(nombreMascota);
 			
@@ -404,7 +391,7 @@ void registrarEvolucion(){
 			}
 			
 			if(band==false){
-				printf("\n\t\tLa mascota no pudo ser encontrada, desea intentar nuevamente? [s/n]: ");
+				printf("\n\t\t        La mascota no pudo ser encontrada, desea intentar nuevamente? [s/n]: ");
 				fflush(stdin);
 				scanf("%c",&opc);
 				system("cls");
