@@ -154,7 +154,6 @@ bool login(){
             textcolor(BLACK);
             gotoxy(58-10, 15); gets(user.usuario);
             password(61-13, 17 , user.contrasenia);
-            //gotoxy(63, 17);gets(user.contrasenia);
             textcolor(WHITE);
             textbackground(BLACK);
             rewind(arch);
@@ -239,7 +238,6 @@ void listaDeEspera(){
 	}
 	else{
 		titulo_Generico(titulo, 0, 19, 4, 101, 4);
-		printf("\n\n\t\t\tDatos matricula:  %d\n\n",datos.matricula);
 		rewind(arch);
 		fread(&tur, sizeof(tur), 1, arch);
 			while (!feof(arch)){
@@ -253,7 +251,7 @@ void listaDeEspera(){
 										}
 									fread(&masc,sizeof(mascota),1,arch2);
 								}
-							printf("\t\t\t%cNombre de la mascota: %s\n", 175, nombreMascota);
+							printf("\n\n\t\t\t%cNombre de la mascota: %s\n", 175, nombreMascota);
 							printf("\t\t\t%cDNI del duenio: %d\n", 175, tur.dni_duenio);
 							printf("\t\t\t%cFecha de turno: %d/%d/%d\n", 175, tur.fec.dia, tur.fec.mes, tur.fec.anio);
 							printf("\n\t\t     ==============================================================================\n");
