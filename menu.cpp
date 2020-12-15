@@ -61,10 +61,7 @@ int menu(const char *titulo, const char *opciones[], int N){
 	textcolor(WHITE);
 	gotoxy(49, 5); printf("%c", 219);
 	gotoxy(50+strlen(titulo), 5); printf("%c", 219);
-	//gotoxy(56, 5); printf("%cBIENVENIDO%c", 173, 33);
 	textbackground(BLACK);
-	// textcolor(WHITE);
-	//gotoxy(50, 7); printf("%s", titulo);
 	textcolor(WHITE);
 	textbackground(LIGHTRED);
 	gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
@@ -84,10 +81,8 @@ int menu(const char *titulo, const char *opciones[], int N){
 			
 			do{
 				ocultarCursor();
-				//gotoxy(119, 34);printf(" ");
 			do{
 				ocultarCursor();
-				//gotoxy(119, 34);printf(" ");
 				tecla= getch();  
 			}while(tecla!=UP && tecla!=DOWN && tecla!=ENTER);
 			switch(tecla){
