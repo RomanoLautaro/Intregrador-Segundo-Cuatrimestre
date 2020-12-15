@@ -164,20 +164,6 @@ bool login(){
                     band=true;
                     break; 
                 }
-                //else{
-
-                //     textcolor(WHITE);
-                //     textbackground(LIGHTRED);
-                //     gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
-                //     textcolor(BLACK);
-                //     textbackground(WHITE);
-                //     gotoxy(26-7, 21+7); printf(" El usuario no existe. ");
-                //     textbackground(BLACK);
-                //     textcolor(WHITE);
-	            //     system("pause>nul");
-	            //     system("cls");
-	            //     return false;
-                // }
                 fread(&admin,sizeof(usuario),1,arch);
             }
             if(band==true){
@@ -185,7 +171,6 @@ bool login(){
                     if(strcmp(user.contrasenia,admin.contrasenia)==0){
                             band=true;
                             system("cls");
-							//return true;
 					}else{
                         textcolor(WHITE);
                         textbackground(LIGHTRED);
@@ -254,7 +239,7 @@ void listaDeEspera(){
 	}
 	else{
 		titulo_Generico(titulo, 0, 19, 4, 101, 4);
-		printf("\n\n\t\t\tDatos matricula:  %d\n\n",datos.matricula);//ERROR La matricula no se guarda
+		printf("\n\n\t\t\tDatos matricula:  %d\n\n",datos.matricula);
 		rewind(arch);
 		fread(&tur, sizeof(tur), 1, arch);
 			while (!feof(arch)){
@@ -265,13 +250,12 @@ void listaDeEspera(){
 								while(!feof(arch2)){
 										if(tur.dni_duenio==masc.dniDuenio){
 											strcpy(nombreMascota,masc.apeNom);
-											//break;
 										}
 									fread(&masc,sizeof(mascota),1,arch2);
 								}
-							printf("\t\t\tNombre de la mascota: %s\n",nombreMascota);
-							printf("\t\t\tDNI del duenio: %d\n", tur.dni_duenio);
-							printf("\t\t\tFecha de turno: %d/%d/%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
+							printf("\t\t\t%cNombre de la mascota: %s\n", 175, nombreMascota);
+							printf("\t\t\t%cDNI del duenio: %d\n", 175, tur.dni_duenio);
+							printf("\t\t\t%cFecha de turno: %d/%d/%d\n", 175, tur.fec.dia, tur.fec.mes, tur.fec.anio);
 							printf("\n\t\t     ==============================================================================\n");
 							turnoparavet = true;
 						}
@@ -292,13 +276,13 @@ void listaDeEspera(){
 						fread(&masc,sizeof(mascota),1,arch2);
 						while(!feof(arch2) && band==false){
 							if(dniduenio==masc.dniDuenio){
-								printf("\n\n\t\tNombre de la mascota: %s",masc.apeNom);
-								printf("\n\t\tPeso: %.2f Kg",masc.peso);
-								printf("\n\t\tFecha de nacimiento: %d-%d-%d",masc.fechaDeNac.dia,masc.fechaDeNac.mes,masc.fechaDeNac.anio);
-								printf("\n\t\tLocalidad: %s",masc.localidad);
-								printf("\n\t\tDomicilio: %s",masc.domicilio);
-								printf("\n\t\tDni del duenio: %d",masc.dniDuenio);
-								printf("\n\t\tTelefono: %d",masc.telefono);
+								printf("\n\n\t\t%cNombre de la mascota: %s", 175, masc.apeNom);
+								printf("\n\t\t%cPeso: %.2f Kg", 175, masc.peso);
+								printf("\n\t\t%cFecha de nacimiento: %d/%d/%d", 175, masc.fechaDeNac.dia,masc.fechaDeNac.mes,masc.fechaDeNac.anio);
+								printf("\n\t\t%cLocalidad: %s", 175,masc.localidad);
+								printf("\n\t\t%cDomicilio: %s", 175,masc.domicilio);
+								printf("\n\t\t%cDni del due%co: %d", 175, 164, masc.dniDuenio);
+								printf("\n\t\t%cTelefono: %d", 175,masc.telefono);
 								band=true;
 							}
 							fread(&masc,sizeof(mascota),1,arch2);
@@ -350,17 +334,17 @@ void registrarEvolucion(){
 								fread(&masc,sizeof(mascota),1,arch2);
 							}
 							
-							printf("\n\n\t\t\tNombre de la mascota: %s\n",nombreMascota);
-							printf("\t\t\tDNI del due%co: %d\n", 164, tur.dni_duenio);
-							printf("\t\t\tFecha en la que se otorgo el turno: %d/%d/%d\n", tur.fec.dia, tur.fec.mes, tur.fec.anio);
-							printf("\n\t\t     ==============================================================================\n");
+							printf("\n\n\t\t\t%cNombre de la mascota: %s\n", 175,nombreMascota);
+							printf("\t\t\t%cDNI del due%co: %d\n", 175, 164, tur.dni_duenio);
+							printf("\t\t\t%cFecha en la que se otorgo el turno: %d/%d/%d\n",  175, tur.fec.dia, tur.fec.mes, tur.fec.anio);
+							printf("\n\t\t     ==============================================================================");
 							turnoparavet = true;
 						}
 					}
 					fread(&tur, sizeof(tur), 1, arch);
 			}
 			
-			printf("\n\t\t\tIngrese Nombre y Apellido de la mascota: ");
+			printf("\n\n\t\t\t%cIngrese Nombre y Apellido de la mascota: ", 175);
 			fflush(stdin);
 			gets(nombreMascota);
 			
@@ -379,7 +363,7 @@ void registrarEvolucion(){
 				if(tur.dni_duenio==dniduenio && tur.atendido==false)
 					{
 						band=true;
-						printf("\n\t\tEvolucion de la mascota: ");
+						printf("\n\t\t\t%cEvolucion de la mascota: ", 175);
 						fflush(stdin);
 						gets(tur.detalles);
 						tur.atendido = true;
@@ -397,7 +381,8 @@ void registrarEvolucion(){
 				system("cls");
 			}
 			else{
-				printf("\n\t\tEvolucion registrada con exito...");
+				printf("\n\n\t\t\t             Evolucion registrada con exito...");
+				system("pause>nul");
 			}
 		
 		}while(opc=='s' || opc=='S');
