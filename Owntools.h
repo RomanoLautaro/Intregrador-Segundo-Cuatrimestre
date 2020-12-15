@@ -145,7 +145,7 @@ void titulo_Generico(const char *titulo[], int i, int x1, int y1, int x2, int y2
 			gotoxy(z, 4); printf("%c", 219);
 		}
 	gotoxy(x2, y2); textcolor(WHITE); printf("%c", 177);
-	textbackground(WHITE); textcolor(BLACK); gotoxy(51, 4); printf("%s", titulo[i]); textcolor(WHITE); textbackground(BLACK);
+	textbackground(WHITE); textcolor(BLACK); gotoxy(51, 4); printf(" %s ", titulo[i]); textcolor(WHITE); textbackground(BLACK);
 }
 
 void marcoGenerico(int x1, int x2, int y1, int y2){
