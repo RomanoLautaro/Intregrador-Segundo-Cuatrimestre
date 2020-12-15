@@ -166,7 +166,6 @@ bool login(){
             textcolor(BLACK);
             gotoxy(58-10, 15); gets(user.usuario);
             password(61-13, 17 , user.contrasenia);
-            //gotoxy(63, 17);gets(user.contrasenia);
             textcolor(WHITE); textbackground(BLACK);
             rewind(arch);
             fread(&admin,sizeof(usuario),1,arch);
@@ -175,20 +174,6 @@ bool login(){
                     band=true;
                     break; 
                 }
-                //else{
-
-                //     textcolor(WHITE);
-                //     textbackground(LIGHTRED);
-                //     gotoxy(19-8, 21+7); printf(" %cNOTA: ", 175);
-                //     textcolor(BLACK);
-                //     textbackground(WHITE);
-                //     gotoxy(26-7, 21+7); printf(" El usuario no existe. ");
-                //     textbackground(BLACK);
-                //     textcolor(WHITE);
-	            //     system("pause>nul");
-	            //     system("cls");
-	            //     return false;
-                // }
                 fread(&admin,sizeof(usuario),1,arch);
             }
             if(band==true){
@@ -265,8 +250,13 @@ void registrarMascota(){
     gotoxy(41, 17); textbackground(WHITE); textcolor(BLACK); printf("                         ");
 	gotoxy(41, 17); scanf("%d", &animal.telefono); textbackground(BLACK); textcolor(WHITE);
     gotoxy(22, 19); textcolor(YELLOW); printf("%cFecha nacimiento DD/MM/AAAA:", 175);
-    gotoxy(52, 19); textbackground(WHITE); textcolor(BLACK); printf("              ");
-    gotoxy(52, 19);scanf("%d/%d/%d", &animal.fechaDeNac.dia, &animal.fechaDeNac.mes, &animal.fechaDeNac.anio); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(52, 19); textbackground(WHITE); printf("  "); textbackground(BLACK); 
+    gotoxy(54, 19); textcolor(YELLOW); printf("/"); textbackground(WHITE);
+    gotoxy(55, 19); textbackground(WHITE); printf("  "); textbackground(BLACK);
+    gotoxy(57, 19); textcolor(YELLOW); printf("/"); textbackground(WHITE);
+    gotoxy(58, 19); textbackground(WHITE); printf("    "); textcolor(BLACK);
+    gotoxy(52, 19); scanf("%d", &animal.fechaDeNac.dia); gotoxy(55, 19); scanf("%d", &animal.fechaDeNac.mes);
+    gotoxy(58, 19); scanf("%d", &animal.fechaDeNac.anio); textbackground(BLACK); textcolor(WHITE);
 	fwrite(&animal, sizeof(mascota), 1, arch);
 	gotoxy(44, 25); printf("Mascota registrada exitosamente...");
 	system("pause>nul");
@@ -286,8 +276,13 @@ void registrarTurno(){
     gotoxy(48, 9); textbackground(WHITE); textcolor(BLACK); printf("          ");
 	gotoxy(48, 9); scanf("%d",&tur.dni_duenio); textbackground(BLACK); textcolor(WHITE);
     gotoxy(24, 11); textcolor(YELLOW); printf("%cIngrese la fecha del turno DD/MM/AAAA:", 175);
-    gotoxy(65, 11); textbackground(WHITE); textcolor(BLACK); printf("             ");
-    gotoxy(65, 11); scanf("%d/%d/%d", &tur.fec.dia, &tur.fec.mes, &tur.fec.anio); textbackground(BLACK); textcolor(WHITE);
+    gotoxy(65, 11); textbackground(WHITE); printf("  "); textbackground(BLACK); 
+    gotoxy(67, 11); textcolor(YELLOW); printf("/"); textbackground(WHITE);
+    gotoxy(68, 11); textbackground(WHITE); printf("  "); textbackground(BLACK); 
+    gotoxy(70, 11); textcolor(YELLOW); printf("/"); textbackground(WHITE);
+	gotoxy(71, 11); textbackground(WHITE); printf("    "); textcolor(BLACK);
+	gotoxy(65, 11); scanf("%d", &tur.fec.dia); gotoxy(68, 11); scanf("%d", &tur.fec.mes); 
+	gotoxy(71, 11); scanf("%d", &tur.fec.dia); textbackground(BLACK); textcolor(WHITE);
     tur.atendido=false;
 
 	fwrite(&tur, sizeof(turnos), 1, arch);
