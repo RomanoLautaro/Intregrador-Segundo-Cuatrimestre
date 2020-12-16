@@ -106,7 +106,7 @@ void menuPrincipal(bool &b){
 		}
 	}while(band);
 	system("cls");
-	gotoxy(40, 12); printf("Se cerro el modulo de administracion. Adios...\n\n\n\n");
+	gotoxy(40, 12); printf("Se cerro el modulo de Asistente. Adios...\n\n\n\n");
 	gotoxy(48, 32); printf("copyright%c 2020 GoldenCode\n\n",184);
 	system("pause>nul");
 }
