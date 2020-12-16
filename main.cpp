@@ -73,6 +73,7 @@ void menu_principal(usuario user){
 	
 	do{
 		system("cls");
+		gotoxy(48, 32); printf("copyright%c 2020 GoldenCode",184);
 		Op=menu(titulo, opciones, 4);
 		switch(Op){
 			case 1: system("cls"); registroUser(user);
@@ -87,6 +88,7 @@ void menu_principal(usuario user){
 	}while(band);
 	system("cls");
 	gotoxy(40, 12); printf("Se cerro el modulo de administracion. Adios...\n\n\n\n");
+	gotoxy(48, 32); printf("copyright%c 2020 GoldenCode\n\n",184);
 	system("pause>nul");
 }
 

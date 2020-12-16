@@ -74,6 +74,7 @@ void menuPrincipal(){
 	
 	do{
 		system("cls");
+		gotoxy(48, 32); printf("copyright%c 2020 GoldenCode\n\n",184);
 		textcolor(WHITE);
 		for(int i=35; i<88+1; i++){
 		gotoxy(i, 20); printf("%c", 219);
@@ -98,6 +99,7 @@ void menuPrincipal(){
 	}while(band);
 	system("cls");
 	gotoxy(40, 12); printf("Se cerro el modulo de administracion. Adios...\n\n\n\n");
+	gotoxy(48, 32); printf("copyright%c 2020 GoldenCode\n\n",184);
 	system("pause>nul");
 }
 
