@@ -253,9 +253,9 @@ void registrarMascota(){
 	gotoxy(41, 17); scanf("%d", &animal.telefono); textbackground(BLACK); textcolor(WHITE);
     gotoxy(22, 19); textcolor(YELLOW); printf("%cFecha nacimiento DD/MM/AAAA:", 175);
     gotoxy(52, 19); textbackground(WHITE); printf("  "); textbackground(BLACK); 
-    gotoxy(54, 19); textcolor(YELLOW); printf("/"); textbackground(WHITE);
+    gotoxy(54, 19); textcolor(YELLOW); printf("/");
     gotoxy(55, 19); textbackground(WHITE); printf("  "); textbackground(BLACK);
-    gotoxy(57, 19); textcolor(YELLOW); printf("/"); textbackground(WHITE);
+    gotoxy(57, 19); textcolor(YELLOW); printf("/");
     gotoxy(58, 19); textbackground(WHITE); printf("    "); textcolor(BLACK);
     gotoxy(52, 19); scanf("%d", &animal.fechaDeNac.dia); gotoxy(55, 19); scanf("%d", &animal.fechaDeNac.mes);
     gotoxy(58, 19); scanf("%d", &animal.fechaDeNac.anio); textbackground(BLACK); textcolor(WHITE);
@@ -308,13 +308,13 @@ void listadoAtenciones(){
 		char nombreMascota[50];
 
 		gotoxy(1, 3); textcolor(YELLOW); printf("Ingrese una fecha DD/MM/AAAA:");
-		gotoxy(30, 3); textbackground(WHITE); printf("  "); textbackground(BLACK);
-		gotoxy(33, 3);textcolor(YELLOW); printf("/"); textbackground(WHITE);
+		gotoxy(31, 3); textbackground(WHITE); printf("  "); textbackground(BLACK);
+		gotoxy(33, 3);textcolor(YELLOW); printf("/");
 		gotoxy(34, 3); textbackground(WHITE); printf("  "); textbackground(BLACK);
-		gotoxy(36, 3);textcolor(YELLOW); printf("/"); textbackground(WHITE);
-		gotoxy(37, 3); textbackground(WHITE); printf("    "); textbackground(BLACK); textcolor(BLACK);
-		gotoxy(30, 3); scanf("%d", &fecTurno.dia); gotoxy(34, 3); scanf("%d", &fecTurno.mes); gotoxy(37, 3); scanf("%d", &fecTurno.anio);
-		textbackground(BLACK); textcolor(WHITE);
+		gotoxy(36, 3);textcolor(YELLOW); printf("/");
+		gotoxy(37, 3); textbackground(WHITE); printf("    "); textcolor(BLACK);
+		gotoxy(31, 3); scanf("%d", &fecTurno.dia); gotoxy(34, 3); scanf("%d", &fecTurno.mes); 
+		gotoxy(37, 3); scanf("%d", &fecTurno.anio); textbackground(BLACK); textcolor(WHITE);
 		system("cls");
 
 		rewind(arch);
