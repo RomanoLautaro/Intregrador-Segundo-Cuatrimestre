@@ -307,8 +307,14 @@ void listadoAtenciones(){
 		mascota masc;
 		char nombreMascota[50];
 
-		printf("\n\nIngrese una fecha DD/MM/AAAA: ");
-		scanf("%d/&d/%d", &fecTurno.dia, &fecTurno.mes, &fecTurno.anio);
+		gotoxy(1, 3); textcolor(YELLOW); printf("Ingrese una fecha DD/MM/AAAA:");
+		gotoxy(30, 3); textbackground(WHITE); printf("  "); textbackground(BLACK);
+		gotoxy(33, 3);textcolor(YELLOW); printf("/"); textbackground(WHITE);
+		gotoxy(34, 3); textbackground(WHITE); printf("  "); textbackground(BLACK);
+		gotoxy(36, 3);textcolor(YELLOW); printf("/"); textbackground(WHITE);
+		gotoxy(37, 3); textbackground(WHITE); printf("    "); textbackground(BLACK); textcolor(BLACK);
+		gotoxy(30, 3); scanf("%d", &fecTurno.dia); gotoxy(34, 3); scanf("%d", &fecTurno.mes); gotoxy(37, 3); scanf("%d", &fecTurno.anio);
+		textbackground(BLACK); textcolor(WHITE);
 		system("cls");
 
 		rewind(arch);
